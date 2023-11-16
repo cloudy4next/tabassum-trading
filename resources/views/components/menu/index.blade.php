@@ -5,7 +5,7 @@
 <nav class="sidebar js-sidebar" id="sidebar">
     <div class="sidebar-content js-simplebar">
         <a class="sidebar-brand" href="/">
-            <span class="align-middle">Admin Laes</span>
+            <span class="align-middle">{{ env('APP_NAME') }}</span>
         </a>
         <ul class="sidebar-nav">
 

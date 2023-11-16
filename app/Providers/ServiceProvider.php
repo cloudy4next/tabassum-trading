@@ -16,7 +16,9 @@ class ServiceProvider extends ServiceProvider
 
     protected function serviceBinding(): void
     {
-        $services = [];
+        $services = [
+            'Retail'
+        ];
 
         foreach ($services as $serv) {
             $this->app->bind("App\\Contracts\\{$serv}ServiceInterface", "App\\Services\\{$serv}Service");
