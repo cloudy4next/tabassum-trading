@@ -20,12 +20,20 @@
                             <td class="text-center">{{ $row->{$column} }}</td>
                         @endforeach
                         <td class="text-center">
-                            <a href="{{ route($actionRoute[0], $row->id) }}" class="btn btn-sm btn-primary"><i
-                                    class="fa fa-eye" aria-hidden="true"></i> View</a>
-                            <a href="{{ route($actionRoute[1], $row->id) }}" class="btn btn-sm btn-secondary"><i
-                                    class="fa fa-pencil" aria-hidden="true"></i> Edit</a>
-                            <a href="{{ route($actionRoute[2], $row->id) }}" class="btn btn-sm btn-danger"><i
-                                    class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                            @if (isset($actionRoute['view']))
+                                <a href="{{ route($actionRoute['view'], $row->id) }}" class="btn btn-sm btn-primary"><i
+                                        class="fa fa-eye" aria-hidden="true"></i> View</a>
+                            @endif
+                            @if (isset($actionRoute['edit']))
+                                <a href="{{ route($actionRoute['edit'], $row->id) }}"
+                                    class="btn btn-sm btn-secondary"><i class="fa fa-pencil" aria-hidden="true"></i>
+                                    Edit</a>
+                            @endif
+                            @if (isset($actionRoute['delete']))
+                                <a href="{{ route($actionRoute['delete'], $row->id) }}" class="btn btn-sm btn-danger"><i
+                                        class="fa fa-trash" aria-hidden="true"></i> Delete</a>
+                            @endif
+
                         </td>
                     </tr>
                 @empty

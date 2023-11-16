@@ -18,7 +18,7 @@ class UserController extends Controller
     {
         $columns = ['name', 'email'];
         $items = User::paginate(5);
-        $actionRoute = ['user_edit', 'user_edit', 'user_delete'];
+        $actionRoute = ['view' => 'user_edit', 'edit' => 'user_edit', 'delete' => 'user_delete'];
         return view('home.users.list', compact('columns', 'items', 'actionRoute'));
     }
 
