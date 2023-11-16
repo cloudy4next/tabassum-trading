@@ -16,7 +16,24 @@
                     <span class="align-middle">Dashboard</span>
                 </a>
             </li>
-            <li
+
+
+            <li class="sidebar-item {{ in_array($segment, ['settings', 'user_list']) ? 'active' : '' }}">
+                <a class="sidebar-link" data-bs-target="#pages" data-bs-toggle="collapse">
+                    <i data-feather="file"></i>
+                    <span class="align-middle">Settings</span>
+                </a>
+                <ul class="sidebar-dropdown list-unstyled collapse show" id="pages" data-bs-parent="#sidebar">
+                    <li class="sidebar-item">
+                        <a class="sidebar-link" href="{{ route('user_list') }}">Users</a>
+                    </li>
+                    {{-- <li class="sidebar-item {{ 'pages-blank' == $segment ? 'active' : '' }}">
+                        <a class="sidebar-link" href="pages-blank.html">Blank Page</a>
+                    </li> --}}
+                </ul>
+            </li>
+
+            {{-- <li
                 class="sidebar-item {{ in_array($segment, ['pages', 'pages-settings', 'pages-blank']) ? 'active' : '' }}">
                 <a class="sidebar-link" data-bs-target="#pages" data-bs-toggle="collapse">
                     <i data-feather="file"></i>
@@ -85,7 +102,7 @@
                     <i class="align-middle" data-feather="moon"></i>
                     <span class="align-middle">Components</span>
                 </a>
-            </li>
+            </li> --}}
         </ul>
     </div>
 </nav>

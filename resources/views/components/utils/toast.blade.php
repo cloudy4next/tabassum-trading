@@ -7,7 +7,7 @@
             popup: 'colored-toast'
         },
         showConfirmButton: false,
-        timer: 1500,
+        timer: 2000,
         timerProgressBar: true
     })
     Toast.fire({
