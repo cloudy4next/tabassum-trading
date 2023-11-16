@@ -18,14 +18,14 @@
             </li>
 
 
-            <li class="sidebar-item {{ in_array($segment, ['settings', 'user_list']) ? 'active' : '' }}">
+            <li class="sidebar-item {{ in_array($segment, ['settings', 'users']) ? 'active' : '' }}">
                 <a class="sidebar-link" data-bs-target="#pages" data-bs-toggle="collapse">
                     <i data-feather="file"></i>
                     <span class="align-middle">Settings</span>
                 </a>
                 <ul class="sidebar-dropdown list-unstyled collapse show" id="pages" data-bs-parent="#sidebar">
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="{{ route('user_list') }}">Users</a>
+                    <li class="sidebar-item {{ 'users' == $segment ? 'active' : '' }}"">
+                        <a class="sidebar-link" href="users">Users</a>
                     </li>
                     {{-- <li class="sidebar-item {{ 'pages-blank' == $segment ? 'active' : '' }}">
                         <a class="sidebar-link" href="pages-blank.html">Blank Page</a>

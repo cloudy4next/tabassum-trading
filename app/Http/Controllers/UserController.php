@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Contracts\UserServiceInterface;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -15,7 +16,10 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        dd('here');
+        $columns = ['name', 'email'];
+        $items = User::paginate(5);
+        $actionRoute = ['user_edit', 'user_edit', 'user_delete'];
+        return view('home.users.list', compact('columns', 'items', 'actionRoute'));
     }
 
     public function store(Request $request)
