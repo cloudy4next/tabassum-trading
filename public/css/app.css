@@ -28784,3 +28784,44 @@ span.flatpickr-weekday {
 .ql-container.ql-snow {
   border: 1px solid #ccc;
 }
+
+.highlight {
+  background: #ffda6a;
+  padding: 3px;
+  border-radius: 3px;
+}
+
+.active-menu {
+  background-color: #7F56D9 !important;
+  color: #fff !important;
+}
+
+.image_resized {
+  width: 100%;
+  height: 100%;
+}
+
+.bl-list-un-styled {
+  list-style: none;
+}
+
+.sidebar-link:hover:hover::before {
+  transform: translateX(4px);
+}
+
+.sidebar-link:hover {
+  color: #fd7e14;
+  background: transparent;
+}
+
+.sidebar-dropdown .sidebar-link::before {
+  left: 12px !important;
+}
+
+.sidebar-dropdown .sidebar-link::before {
+  content: "";
+}
+
+.purple-header {
+  background-color: purple;
+}
