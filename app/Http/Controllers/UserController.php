@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Contracts\UserServiceInterface;
 use App\Models\User;
+use Illuminate\Support\Facades\Request;
 
 class UserController extends Controller
 {
@@ -16,10 +16,23 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $columns = ['name', 'email'];
-        $items = User::paginate(5);
+        $filtersData =  Request::all();
+        $query = User::query();
+        $filters = [
+            ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'placeholder' => 'Name...'],
+
+        ];
+        foreach ($filtersData as $key => $value) {
+            if ($value != null) {
+                $query->where($key, $value);
+            }
+        }
+
+        $columns = ['name', 'email', 'created_at', 'updated_at'];
+        $items = $query->paginate(10);
+        $button = ['new' => 'user_create'];
         $actionRoute = ['view' => 'user_edit', 'edit' => 'user_edit', 'delete' => 'user_delete'];
-        return view('home.users.list', compact('columns', 'items', 'actionRoute'));
+        return view('home.users.list', compact('columns', 'items', 'actionRoute', 'filters', 'button'));
     }
 
     public function store(Request $request)
