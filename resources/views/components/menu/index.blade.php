@@ -25,7 +25,7 @@
                 </a>
                 <ul class="sidebar-dropdown list-unstyled collapse show" id="pages" data-bs-parent="#sidebar">
                     <li class="sidebar-item {{ 'users' == $segment ? 'active' : '' }}"">
-                        <a class="sidebar-link" href="users">Users</a>
+                        <a class="sidebar-link" href="/users">Users</a>
                     </li>
                     {{-- <li class="sidebar-item {{ 'pages-blank' == $segment ? 'active' : '' }}">
                         <a class="sidebar-link" href="pages-blank.html">Blank Page</a>

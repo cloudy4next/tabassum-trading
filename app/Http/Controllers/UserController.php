@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\UserServiceInterface;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
-use Illuminate\Support\Facades\Request;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -16,29 +17,41 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $filtersData =  Request::all();
-        $query = User::query();
-        $filters = [
-            ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'placeholder' => 'Name...'],
+        $data = $this->userService->getData($request);
 
-        ];
-        foreach ($filtersData as $key => $value) {
-            if ($value != null) {
-                $query->where($key, $value);
-            }
-        }
-
-        $columns = ['name', 'email', 'created_at', 'updated_at'];
-        $items = $query->paginate(10);
+        /**
+         * Configuration for list view
+         */
+        $filters = [['name' => 'name', 'label' => 'Name', 'type' => 'text', 'placeholder' => 'Name...'],];
+        $columns = ['name', 'email', 'mobile', 'created_at'];
         $button = ['new' => 'user_create'];
         $actionRoute = ['view' => 'user_edit', 'edit' => 'user_edit', 'delete' => 'user_delete'];
-        return view('home.users.list', compact('columns', 'items', 'actionRoute', 'filters', 'button'));
+
+
+        return view('home.users.list', compact('columns', 'data', 'actionRoute', 'filters', 'button'));
     }
 
-    public function store(Request $request)
+    public function create(Request $request)
     {
-        $this->userService->create($request->all());
+        $permission = $this->userService->getPermission();
+        // ['name' => 'category', 'label' => 'Category', 'type' => 'select', 'options' => [['value' => 'category1', 'label' => 'Category 1'], ['value' => 'category2', 'label' => 'Category 2']]],
+        $column = [
+            ['name' => 'name', 'label' => 'Name', 'type' => 'text', 'placeholder' => 'Name...'],
+            ['name' => 'mobile', 'label' => 'Mobile', 'type' => 'number', 'placeholder' => 'Mobile...'],
+            ['name' => 'email', 'label' => 'Email', 'type' => 'email', 'placeholder' => 'Email...'],
+            ['name' => 'password', 'label' => 'Passowrd', 'type' => 'password', 'placeholder' => 'Password...'],
+            ['name' => 'permission', 'label' => 'Permission', 'type' => 'component', 'placeholder' => 'Component...', 'value' => $permission, 'component' => 'user.permission']
+        ];
+        $route = 'user_store';
+        return view('home.users.create', compact('column', 'route'));
     }
+
+    public function store(UserRequest $request)
+    {
+        $this->userService->store($request->all());
+        return redirect('users')->with('success', 'User Created Successfully');
+    }
+
     public function update(Request $request)
     {
         $this->userService->update($request->all());
