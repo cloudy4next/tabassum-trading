@@ -7,6 +7,7 @@ use App\Contracts\UserServiceInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
 class UserService implements UserServiceInterface
@@ -41,10 +42,23 @@ class UserService implements UserServiceInterface
     public function update(Request $request)
     {
     }
-    public function delete(Request $request)
+    public function delete($id)
     {
+
+        $user = User::find($id);
+
+        if ($user) {
+            $user->revokePermissionTo($user->getAllPermissions());
+        }
+        $user->delete();
     }
-    public function edit(Request $request)
+    public function edit($id)
     {
+        return User::find($id)->toArray();
+    }
+
+    public function getPermissions(): array
+    {
+        return Auth::user()->permissions;
     }
 }

@@ -1,4 +1,4 @@
-@props(['column', 'route', 'cardtitle'])
+@props(['form', 'cardtitle'])
 
 @php
     $segment = Str::ucfirst(request()->segment(1));
@@ -22,45 +22,35 @@
                 </div>
             @endif
             <div class="card-body">
-                <form id="userForm" method="POST" action="{{ route($route) }}">
+                <form id="userForm" method={{ $form->actionMethod }} action="{{ route($form->actionRoute) }}">
                     @csrf
                     <div class="row mb-2">
-                        @foreach ($column as $field)
+                        @foreach ($form->column as $field)
                             <div class="form-group col-md-6 mb-2">
-                                <label for="{{ $field['name'] }}">{{ $field['label'] }}:</label>
-                                @switch($field['type'])
-                                    @case($field['type'] == 'text')
-                                        <input type="text" name="{{ $field['name'] }}" id="{{ $field['name'] }}"
-                                            placeholder="{{ $field['placeholder'] ?? '' }}" class="form-control">
-                                    @break
-
-                                    @case($field['type'] == 'number')
-                                        <input type="number" name="{{ $field['name'] }}" id="{{ $field['name'] }}"
-                                            placeholder="{{ $field['placeholder'] ?? '' }}" class="form-control">
-                                    @break
-
-                                    @case($field['type'] == 'select')
-                                        <select name="{{ $field['name'] }}" id="{{ $field['name'] }}" class="form-control">
-                                            <option value="">{{ $field['placeholder'] ?? 'Select ' . $field['label'] }}
+                                <label for="{{ $field->name }}">{{ $field->label }}:</label>
+                                @switch($field->type)
+                                    @case($field->type == 'select')
+                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control">
+                                            <option value="">{{ $field->placeholder ?? 'Select ' . $field->label }}
                                             </option>
-                                            @foreach ($field['options'] as $option)
+                                            @foreach ($field->options as $option)
                                                 <option value="{{ $option['value'] }}">{{ $option['label'] }}</option>
                                             @endforeach
                                         </select>
                                     @break
 
-                                    @case($field['type'] == 'component')
-                                        <x-dynamic-component :component="$field['component']" :value="$field['value'] ?? null" />
+                                    @case($field->type == 'component')
+                                        <x-dynamic-component :component="$field->component" :value="$field->value ?? null" />
                                     @break
 
-                                    @case($field['type'] == 'email')
-                                        <input type="email" name="{{ $field['name'] }}" id="{{ $field['name'] }}"
-                                            placeholder="{{ $field['placeholder'] ?? '' }}" class="form-control">
+                                    @case($field->type == 'password')
+                                        <input type="password" name="{{ $field->name }}" id="{{ $field->name }}"
+                                            placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
                                     @break
 
-                                    @case($field['type'] == 'password')
-                                        <input type="password" name="{{ $field['name'] }}" id="{{ $field['name'] }}"
-                                            placeholder="{{ $field['placeholder'] ?? '' }}" class="form-control">
+                                    @default
+                                        <input type="password" name="{{ $field->name }}" id="{{ $field->name }}"
+                                            placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
                                     @break
                                 @endswitch
                             </div>
@@ -75,3 +65,5 @@
             </div>
         </div>
     </div>
+
+</div>

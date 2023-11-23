@@ -11,7 +11,9 @@ interface UserServiceInterface
     function  getData(Request $request): LengthAwarePaginator;
     function store(array $data);
     function update(Request $request);
-    function delete(Request $request);
-    function edit(Request $request);
+    function delete(int $id);
+    function edit(int $id);
     function getPermission(): Collection;
+
+    function getPermissions(): array;
 }

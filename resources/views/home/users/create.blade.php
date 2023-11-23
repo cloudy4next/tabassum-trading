@@ -2,5 +2,5 @@
     <x-slot:title>
         {{ $title ?? 'Cloudy4next' }} :: Users
     </x-slot>
-    <x-generic.create :column="$column" :route="$route" />
+    <x-generic.create :form="$form" />
 </x-main-layout>
