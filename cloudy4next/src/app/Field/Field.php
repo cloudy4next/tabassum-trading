@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Generic\Field;
+namespace Cloudy4next\NativeCloud\App\Field;
 
 class Field
 {

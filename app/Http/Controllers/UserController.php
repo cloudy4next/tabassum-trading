@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\UserServiceInterface;
-use App\Generic\Field\Button;
-use App\Generic\Field\Column;
-use App\Generic\Field\Field;
-use App\Generic\Form\CurdForm;
+
 use App\Http\Requests\UserRequest;
+use Cloudy4next\NativeCloud\App\Contracts\NativeCloudInterface;
+use Cloudy4next\NativeCloud\App\Field\Button;
+use Cloudy4next\NativeCloud\App\Field\Column;
+use Cloudy4next\NativeCloud\App\Field\Field;
+use Cloudy4next\NativeCloud\App\Form\CurdForm;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UserController extends Controller implements NativeCloudInterface
 {
     private $userService;
     public function __construct(UserServiceInterface $userService)
@@ -67,6 +69,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
+        dd($request->all());
         $this->userService->update($request->all());
     }
 
@@ -74,7 +77,6 @@ class UserController extends Controller
     {
         $this->userService->delete($id);
         return redirect('users')->with('success', 'User Deleted Successfully');
-
     }
     public function edit(Request $request)
     {

@@ -168,6 +168,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Cloudy4next\NativeCloud\NativeCloudServiceProvider::class
     ])->toArray(),
 
     /*
@@ -182,6 +183,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
+        'NativeCloud' => \Cloudy4next\NativeCloud\Facades\NativeCloudFacade::class,
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 

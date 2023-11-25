@@ -25,7 +25,6 @@
             <div class="card-body">
                 <form id="userForm" method="POST" action="{{ route($form->actionRoute, $form->editData['id']) }}">
                     @csrf
-                    @method('PUT') {{-- Use PUT method for update --}}
                     <div class="row mb-2">
                         @foreach ($form->column as $field)
                             <div class="form-group col-md-6 mb-2">

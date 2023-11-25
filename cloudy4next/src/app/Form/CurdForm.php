@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Generic\Form;
+namespace Cloudy4next\NativeCloud\App\Form;
 
-use App\Generic\Field\Column;
 
 class CurdForm
 {

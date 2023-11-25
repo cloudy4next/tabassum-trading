@@ -4,6 +4,6 @@
         {{ $title ?? 'Cloudy4next' }} :: Users
     </x-slot>
 
-    <x-generic.table :columns="$columns" :rows="$data" :filters="$filters" :buttons="$buttons" />
+    <x-native-cloud::curd-board />
 
 </x-main-layout>

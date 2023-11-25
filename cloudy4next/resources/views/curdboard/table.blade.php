@@ -1,6 +1,6 @@
 @props(['columns', 'rows', 'filters', 'buttons'])
 
-<x-generic.filter :filters="$filters" />
+<x-native-cloud::curd-board-filter :filters="$filters" />
 
 <div class="content">
     {{-- @php
@@ -63,6 +63,6 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            {{ $rows->links('pagination.compact') }}
+            {{ $rows->links('native-cloud::curd-pagination') }}
         </div>
     </div>
