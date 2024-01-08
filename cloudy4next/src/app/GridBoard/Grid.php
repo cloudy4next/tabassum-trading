@@ -8,12 +8,12 @@ use Illuminate\Pagination\LengthAwarePaginator;
 final class Grid implements GridInterface
 {
     private ?array $columns;
-    private LengthAwarePaginator $modelData;
+    private array $modelData;
     private ?array $buttons;
 
     private ?array $filters;
 
-    public function __construct(array $columns, LengthAwarePaginator $modelData, array $buttons, array $filters)
+    public function __construct(array $columns ,  $modelData , array $buttons , array $filters )
     {
         $this->columns = $columns;
         $this->modelData = $modelData;
@@ -21,7 +21,7 @@ final class Grid implements GridInterface
         $this->filters = $filters;
     }
 
-    public static function init(array $columns, LengthAwarePaginator $modelData, array $buttons, array $filters): self
+    public static function init(array $columns ,  $modelData , array $buttons , array $filters ): self
     {
         return new self($columns, $modelData, $buttons, $filters);
     }
@@ -44,5 +44,4 @@ final class Grid implements GridInterface
     {
         return $this->columns;
     }
-
 }

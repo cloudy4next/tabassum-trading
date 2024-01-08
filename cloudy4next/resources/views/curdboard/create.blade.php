@@ -1,10 +1,8 @@
 @props(['form', 'cardtitle'])
 
-@php
-    $segment = Str::ucfirst(request()->segment(1));
-@endphp
 
-<div class="content">
+@dd()
+{{-- <div class="content">
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">Create {{ $segment }}</h5>
@@ -66,4 +64,4 @@
         </div>
     </div>
 
-</div>
+</div> --}}

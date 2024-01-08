@@ -5,12 +5,11 @@ namespace App\Http\Controllers;
 use App\Contracts\UserServiceInterface;
 
 use App\Http\Requests\UserRequest;
-
+use App\Models\User;
 use Cloudy4next\NativeCloud\App\Controller\Cloudy4nextController;
 use Cloudy4next\NativeCloud\App\Field\Button;
 use Cloudy4next\NativeCloud\App\Field\Column;
 use Cloudy4next\NativeCloud\App\Field\Field;
-use Cloudy4next\NativeCloud\App\Form\CurdForm;
 use Illuminate\Http\Request;
 
 class UserController extends Cloudy4nextController
@@ -21,47 +20,62 @@ class UserController extends Cloudy4nextController
         $this->userService = $userService;
     }
 
-    public function index(Request $request)
+    public function setup()
     {
-        $data = $this->userService->getData(request());
+    }
 
-        $filters = [Field::init('name')];
-        $columns = [
-            Column::init('name'), Column::init('email'),
-            Column::init('mobile'), Column::init('created_at')
-        ];
-
-        $buttons = [
-            Button::init(Button::NEW)->setRoute('user_create'),
-            // Button::init(Button::NEW)->setRoute('user_edit'), // need to change
-            Button::init(Button::EDIT)->setRoute('user_edit'),
-            Button::init(Button::DELETE)->setRoute('user_delete'),
-        ];
-        $this->initGrid($columns, $data, $filters, $buttons);
+    public function index()
+    {
+        $this->initGrid();
 
         return view('home.users.list');
     }
 
-
-    public function configureForm(string $method, string $actionRoute, array $data = null, ?array $componentData = null): CurdForm
+    public function CustomButton()
     {
-        $permission = $this->userService->getPermission();
-        $column = [
+        return [
+            Button::init(Button::NEW)->setRoute('user_create'),
+            Button::init(Button::EDIT)->setRoute('user_edit'),
+            Button::init(Button::DELETE)->setRoute('user_delete'),
+        ];
+    }
+
+    public function filters()
+    {
+        return [
+            Field::init('name'),
+            Field::init('email'),
+            Field::init('mobile'),
+            Field::init('created_at'),
+        ];
+    }
+
+    public function  listOperation()
+    {
+        return [
+            Column::init('name'),
+            Column::init('email'),
+            Column::init('mobile'),
+            Column::init('created_at'),
+        ];
+    }
+
+    public function createOperation()
+    {
+        return [
             Field::init('name', 'Name'),
             Field::init('email', 'Email', 'email'),
             Field::init('mobile', 'Mobile', 'number'),
             Field::init('password', 'Password', 'password'),
-            Field::init('permission[]', 'Permission', 'component', $permission, 'user.permission')->setComponentData($componentData),
+            // Field::init('permission[]', 'Permission', 'component', $permission, 'user.permission')->setComponentData($componentData);
         ];
-
-        return CurdForm::init($column)->setActionRoute($method, $actionRoute)->setData($data);
     }
+
 
     public function create(Request $request)
     {
-
-        $form = $this->configureForm('POST', 'user_store');
-        return view('home.users.create', compact('form'));
+        $this->configureForm('create');
+        return view('home.users.create');
     }
 
     public function store(UserRequest $request)
