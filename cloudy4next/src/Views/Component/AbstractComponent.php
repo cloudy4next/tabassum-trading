@@ -9,17 +9,15 @@ use Cloudy4next\NativeCloud\App\Contracts\NativeCloudInterface;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class CurdBoard extends AbstractComponent
+
+abstract class AbstractComponent extends Component
 {
-    public GridInterface $grid;
-
-
-
-    public function render(): View
+    public function __construct(private NativeCloudInterface $crudBoard)
     {
+    }
 
-        $this->grid = $this->getCrudBoard()->getGrid();
-        // dd($this->grid);
-        return view('native-cloud::curdboard.table');
+    public function getCrudBoard(): NativeCloudInterface
+    {
+        return $this->crudBoard;
     }
 }

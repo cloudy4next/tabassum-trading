@@ -5,14 +5,15 @@ namespace App\Http\Controllers;
 use App\Contracts\UserServiceInterface;
 
 use App\Http\Requests\UserRequest;
-use Cloudy4next\NativeCloud\App\Contracts\NativeCloudInterface;
+
+use Cloudy4next\NativeCloud\App\Controller\Cloudy4nextController;
 use Cloudy4next\NativeCloud\App\Field\Button;
 use Cloudy4next\NativeCloud\App\Field\Column;
 use Cloudy4next\NativeCloud\App\Field\Field;
 use Cloudy4next\NativeCloud\App\Form\CurdForm;
 use Illuminate\Http\Request;
 
-class UserController extends Controller implements NativeCloudInterface
+class UserController extends Cloudy4nextController
 {
     private $userService;
     public function __construct(UserServiceInterface $userService)
@@ -22,7 +23,7 @@ class UserController extends Controller implements NativeCloudInterface
 
     public function index(Request $request)
     {
-        $data = $this->userService->getData($request);
+        $data = $this->userService->getData(request());
 
         $filters = [Field::init('name')];
         $columns = [
@@ -36,9 +37,11 @@ class UserController extends Controller implements NativeCloudInterface
             Button::init(Button::EDIT)->setRoute('user_edit'),
             Button::init(Button::DELETE)->setRoute('user_delete'),
         ];
+        $this->initGrid($columns, $data, $filters, $buttons);
 
-        return view('home.users.list', compact('columns', 'data', 'filters', 'buttons'));
+        return view('home.users.list');
     }
+
 
     public function configureForm(string $method, string $actionRoute, array $data = null, ?array $componentData = null): CurdForm
     {
@@ -81,7 +84,7 @@ class UserController extends Controller implements NativeCloudInterface
     public function edit(Request $request)
     {
         $user = $this->userService->edit($request->id);
-        $userPermission = [1, 2, 3]; //$this->userService->getPermissions();
+        $userPermission = [1, 2, 3];
         $form = $this->configureForm('POST', 'user_update', $user, $userPermission);
         return view('home.users.edit', compact('form'));
     }

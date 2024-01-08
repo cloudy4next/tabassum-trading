@@ -2,10 +2,10 @@
 
 namespace Cloudy4next\NativeCloud\App\Contracts;
 
-use Cloudy4next\NativeCloud\App\Form\CurdForm;
+use Illuminate\Http\Request;
 
 interface NativeCloudInterface
 {
-
-    function configureForm(string $method, string $actionRoute, array $data = null, ?array $componentData = null): CurdForm;
+    function createGrid($columns, $data, $filters, $buttons): GridInterface;
+    function getGrid(): GridInterface;
 }

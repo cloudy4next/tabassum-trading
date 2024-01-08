@@ -2,7 +2,8 @@
 
 namespace Cloudy4next\NativeCloud;
 
-use Cloudy4next\NativeCloud\Facades\NativeCloudFacade;
+use Cloudy4next\NativeCloud\App\Contracts\NativeCloudInterface;
+use Cloudy4next\NativeCloud\App\Services\NativeCloudService;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -18,8 +19,6 @@ class NativeCloudServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->app->singleton("native-cloud", function ($app) {
-            return new NativeCloudFacade();
-        });
+        $this->app->singleton(NativeCloudInterface::class, NativeCloudService::class);
     }
 }

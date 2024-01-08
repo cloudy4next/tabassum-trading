@@ -1,12 +1,10 @@
 @props(['columns', 'rows', 'filters', 'buttons'])
 
-<x-native-cloud::curd-board-filter :filters="$filters" />
+<x-native-cloud::curd-board-filter :filters="$grid->getFilter()" />
 
 <div class="content">
-    {{-- @php
-        dd($button->name);
-    @endphp --}}
-    @foreach ($buttons as $button)
+
+    @foreach ($grid->getButtons() as $button)
         @if ($button->name == 'new' || $button->name == 'custom')
             <div class="d-flex justify-content-end mb-3">
                 <a href="{{ route($button->routeName) }}" class="btn btn-sm btn-primary">{{ $button->label }}</a>
@@ -18,20 +16,20 @@
         <table class="table table-striped table-bordered">
             <thead class="thead-dark">
                 <tr>
-                    @foreach ($columns as $column)
+                    @foreach ($grid->getColumns() as $column)
                         <th class="text-center">{{ ucwords(str_replace('_', ' ', $column->name)) }}</th>
                     @endforeach
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse($rows as $row)
+                @forelse($grid->getData() as $row)
                     <tr>
-                        @foreach ($columns as $column)
+                        @foreach ($grid->getColumns() as $column)
                             <td class="text-center">{{ $row->{$column->name} }}</td>
                         @endforeach
                         <td class="text-center">
-                            @foreach ($buttons as $button)
+                            @foreach ($grid->getButtons() as $button)
                                 @switch($button)
                                     @case($button->name == 'edit')
                                         <a href="{{ route($button->routeName, $row->id) }}" class="btn btn-sm btn-secondary"><i
@@ -55,7 +53,7 @@
                     </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ count($columns) + 1 }}" class="text-center">No records found</td>
+                            <td colspan="{{ count($grid->getColumns()) + 1 }}" class="text-center">No records found</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -63,6 +61,6 @@
         </div>
 
         <div class="d-flex justify-content-end">
-            {{ $rows->links('native-cloud::curd-pagination') }}
+            {{ $grid->getData()->links('native-cloud::pagination.compact') }}
         </div>
     </div>

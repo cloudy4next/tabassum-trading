@@ -1,4 +1,4 @@
-<!-- your_main_view.blade.php -->
+@props(['filters'])
 
 <div class="content">
     <div class="card">
