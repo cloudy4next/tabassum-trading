@@ -10,11 +10,18 @@ final class Form implements FormInterface
 
     private String $operation;
 
+    private String $actionMethod;
+
+    private String $actionRoute;
+
     public const UPDATE = 'update';
     public const CREATE = 'create';
+
+    public const POST = 'POST';
     public function __construct(array $columns)
     {
         $this->columns = $columns;
+        $this->actionMethod = $this->getActionMethod();
     }
 
     public static function init(array $columns): self
@@ -36,5 +43,22 @@ final class Form implements FormInterface
     public function getOperationType()
     {
         return  $this->operation;
+    }
+
+
+    public function getActionMethod()
+    {
+        return Form::POST;
+    }
+
+    public function setActionRoute(String $actionRoute)
+    {
+        $this->actionRoute = $actionRoute;
+        return $this;
+    }
+
+    public function getActionRoute()
+    {
+        return  $this->actionRoute;
     }
 }

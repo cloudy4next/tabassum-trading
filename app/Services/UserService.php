@@ -5,24 +5,18 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use App\Contracts\UserServiceInterface;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 
 class UserService implements UserServiceInterface
 {
 
-    public function getData(Request $request): LengthAwarePaginator
+    public function getData() : Builder
     {
         $query = User::query();
-        $filtersData =  $request->all();
-        foreach ($filtersData as $key => $value) {
-            if ($value != null && $key != "page") {
-                $query->where($key, $value);
-            }
-        }
-        return $query->paginate(10);
+        return $query;
     }
 
     public function getPermission(): Collection
@@ -44,7 +38,6 @@ class UserService implements UserServiceInterface
     }
     public function delete($id)
     {
-
         $user = User::find($id);
 
         if ($user) {

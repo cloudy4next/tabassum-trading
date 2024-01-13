@@ -10,15 +10,14 @@ use Cloudy4next\NativeCloud\Facades\NativeCloudFacade;
 
 abstract class Cloudy4nextController extends Controller implements Cloudy4nextInterface
 {
-
     public function initGrid()
     {
-
-        return  NativeCloudFacade::createGrid($this->listOperation(), [],  $this->CustomButton(), $this->filters());
+        NativeCloudFacade::createGrid($this->listOperation(), $this->setup(),  $this->CustomButton(), $this->filters());
+        return $this;
     }
 
-    public function configureForm($type)
+    public function configureForm($type, $actionRoute)
     {
-        return NativeCloudFacade::createForm($this->createOperation())->setOperationType($type);
+        return NativeCloudFacade::createForm($this->createOperation())->setOperationType($type)->setActionRoute($actionRoute);
     }
 }

@@ -1,11 +1,9 @@
-@props(['form', 'cardtitle'])
+@props(['title'])
 
-
-@dd()
-{{-- <div class="content">
+<div class="content">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Create {{ $segment }}</h5>
+            <h5 class="card-title">{{ Str::title($title) }} </h5>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -20,10 +18,10 @@
                 </div>
             @endif
             <div class="card-body">
-                <form id="userForm" method={{ $form->actionMethod }} action="{{ route($form->actionRoute) }}">
+                <form id="userForm" method={{ $form->getActionMethod() }} action="{{ route($form->getActionRoute()) }}">
                     @csrf
                     <div class="row mb-2">
-                        @foreach ($form->column as $field)
+                        @foreach ($form->getColums() as $field)
                             <div class="form-group col-md-6 mb-2">
                                 <label for="{{ $field->name }}">{{ $field->label }}:</label>
                                 @switch($field->type)
@@ -64,4 +62,4 @@
         </div>
     </div>
 
-</div> --}}
+</div>

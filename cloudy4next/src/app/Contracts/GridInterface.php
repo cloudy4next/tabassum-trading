@@ -10,4 +10,5 @@ interface GridInterface
     function getData();
 
     static function init(array $columns, LengthAwarePaginator $modelData, array $buttons, array $filters): self;
+
 }

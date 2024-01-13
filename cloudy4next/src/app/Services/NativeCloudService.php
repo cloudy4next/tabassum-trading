@@ -7,19 +7,20 @@ use Cloudy4next\NativeCloud\App\Contracts\GridInterface;
 use Cloudy4next\NativeCloud\App\Contracts\NativeCloudInterface;
 use Cloudy4next\NativeCloud\APP\GridBoard\Form;
 use Cloudy4next\NativeCloud\APP\GridBoard\Grid;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 
 final class NativeCloudService implements NativeCloudInterface
 {
     private GridInterface $grid;
     private FormInterface $form;
 
-    private String $model;
+    private Builder $model;
 
-    public function createGrid($columns, $data, $buttons, $filters): GridInterface
+    public function createGrid($columns, $model, $buttons, $filters): GridInterface
     {
-        $this->grid = Grid::init($columns, $data, $buttons, $filters);
-        // dd($this);
+
+        $this->grid = Grid::init($columns, $model, $buttons, $filters);
+
         return $this->grid;
     }
 
@@ -37,5 +38,15 @@ final class NativeCloudService implements NativeCloudInterface
     {
         $this->form = Form::init($columns);
         return $this->form;
+    }
+
+    public function setSetup(Builder $model) : Builder
+    {
+        $this->model = $model;
+        return $this;
+    }
+    public function getSetup()
+    {
+        return $this->model;
     }
 }

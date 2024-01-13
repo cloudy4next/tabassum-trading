@@ -10,4 +10,6 @@ interface FormInterface
     function setOperationType(String $operation);
 
     static function init(array $columns): self;
+
+    // function getActionMethod();
 }

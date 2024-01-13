@@ -4,31 +4,33 @@ namespace Cloudy4next\NativeCloud\APP\GridBoard;
 
 use Cloudy4next\NativeCloud\App\Contracts\GridInterface;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 
 final class Grid implements GridInterface
 {
     private ?array $columns;
-    private array $modelData;
+    private Builder $modelData;
     private ?array $buttons;
 
+    private LengthAwarePaginator $data;
     private ?array $filters;
 
-    public function __construct(array $columns ,  $modelData , array $buttons , array $filters )
+    public function __construct(array $columns,  $modelData, array $buttons, array $filters)
     {
         $this->columns = $columns;
-        $this->modelData = $modelData;
+        $this->data = $this->setPagination($modelData);
         $this->buttons = $buttons;
         $this->filters = $filters;
     }
 
-    public static function init(array $columns ,  $modelData , array $buttons , array $filters ): self
+    public static function init(array $columns,  $modelData, array $buttons, array $filters): self
     {
         return new self($columns, $modelData, $buttons, $filters);
     }
 
     public function getData()
     {
-        return $this->modelData;
+        return $this->data;
     }
     public function getFilter()
     {
@@ -43,5 +45,21 @@ final class Grid implements GridInterface
     public function getColumns()
     {
         return $this->columns;
+    }
+
+    public function setPagination($modelData)
+    {
+        $request = \Request::all();
+        return $this->filterData($request, $modelData)->paginate(10);
+    }
+
+    public function filterData($filtersData, $query)
+    {
+        foreach ($filtersData as $key => $value) {
+            if ($value != null && $key != "page") {
+                $query->where($key, $value);
+            }
+        }
+        return $query;
     }
 }

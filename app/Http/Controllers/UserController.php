@@ -5,11 +5,11 @@ namespace App\Http\Controllers;
 use App\Contracts\UserServiceInterface;
 
 use App\Http\Requests\UserRequest;
-use App\Models\User;
 use Cloudy4next\NativeCloud\App\Controller\Cloudy4nextController;
 use Cloudy4next\NativeCloud\App\Field\Button;
 use Cloudy4next\NativeCloud\App\Field\Column;
 use Cloudy4next\NativeCloud\App\Field\Field;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class UserController extends Cloudy4nextController
@@ -20,8 +20,9 @@ class UserController extends Cloudy4nextController
         $this->userService = $userService;
     }
 
-    public function setup()
+    public function setup(): Builder
     {
+        return $this->userService->getData();
     }
 
     public function index()
@@ -72,9 +73,9 @@ class UserController extends Cloudy4nextController
     }
 
 
-    public function create(Request $request)
+    public function create()
     {
-        $this->configureForm('create');
+        $this->configureForm('create', 'user_store');
         return view('home.users.create');
     }
 

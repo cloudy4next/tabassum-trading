@@ -1,14 +1,9 @@
-@props(['form', 'cardtitle'])
-
-@php
-    // dd($form);
-    $segment = Str::ucfirst(request()->segment(1));
-@endphp
+@props(['cardtitle'])
 
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Edit {{ $segment }}</h5>
+            <h5 class="card-title">Edit {{ $cardtitle }}</h5>
         </div>
         <div class="card-body">
             @if ($errors->any())
