@@ -40,7 +40,7 @@ final class NativeCloudService implements NativeCloudInterface
         return $this->form;
     }
 
-    public function setSetup(Builder $model) : Builder
+    public function setSetup(Builder $model): Builder
     {
         $this->model = $model;
         return $this;

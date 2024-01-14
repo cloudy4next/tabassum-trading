@@ -16,5 +16,5 @@ interface UserServiceInterface
     function edit(int $id);
     function getPermission(): Collection;
 
-    function getPermissions(): array;
+    function getUserPermissions($id);
 }

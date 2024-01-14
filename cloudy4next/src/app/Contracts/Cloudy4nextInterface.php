@@ -10,4 +10,7 @@ interface Cloudy4nextInterface
     function filters();
     function listOperation();
     function createOperation();
+
+    function initEdit($id, $actionRoute, $componentData = null);
+    function setComponentData($id);
 }

@@ -1,9 +1,11 @@
-@props(['cardtitle'])
+@props(['title'])
 
+
+{{-- @dd($form->getData()) --}}
 <div class="content">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title">Edit {{ $cardtitle }}</h5>
+            <h5 class="card-title">{{ Str::title($title) }}</h5>
         </div>
         <div class="card-body">
             @if ($errors->any())
@@ -18,10 +20,11 @@
                 </div>
             @endif
             <div class="card-body">
-                <form id="userForm" method="POST" action="{{ route($form->actionRoute, $form->editData['id']) }}">
+                <form id="userForm" method="POST" action="{{ route($form->getActionRoute()) }}">
                     @csrf
                     <div class="row mb-2">
-                        @foreach ($form->column as $field)
+                        <input type="hidden" id="id" name="id" value={{ $form->getData()['id'] }}>
+                        @foreach ($form->getColums() as $field)
                             <div class="form-group col-md-6 mb-2">
                                 <label for="{{ $field->name }}">{{ $field->label }}:</label>
                                 @switch($field->type)
@@ -31,7 +34,7 @@
                                             </option>
                                             @foreach ($field->options as $option)
                                                 <option value="{{ $option['value'] }}"
-                                                    {{ old($field->name, $form->editData[$field->name] ?? '') == $option['value'] ? 'selected' : '' }}>
+                                                    {{ old($field->name, $form->getData()[$field->name] ?? '') == $option['value'] ? 'selected' : '' }}>
                                                     {{ $option['label'] }}
                                                 </option>
                                             @endforeach
@@ -39,12 +42,16 @@
                                     @break
 
                                     @case('component')
-                                        <x-dynamic-component :component="$field->component" :value="$field->value" :field=$field />
+                                        @foreach ($form->getComponentData() as $key => $value)
+                                            @if ($key == $field->component)
+                                                <x-dynamic-component :component="$field->component" :value="$field->value" :field=$value />
+                                            @endif
+                                        @endforeach
                                     @break
 
                                     @default
                                         <input type="{{ $field->type }}" name="{{ $field->name }}" id="{{ $field->name }}"
-                                            value="{{ old($field->name, $form->editData[$field->name] ?? '') }}"
+                                            value="{{ old($field->name, $form->getData()[$field->name] ?? '') }}"
                                             class="form-control">
                                     @break
                                 @endswitch

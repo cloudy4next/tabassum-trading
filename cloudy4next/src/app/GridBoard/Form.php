@@ -3,6 +3,7 @@
 namespace Cloudy4next\NativeCloud\APP\GridBoard;
 
 use Cloudy4next\NativeCloud\App\Contracts\FormInterface;
+use Illuminate\Support\Collection;
 
 final class Form implements FormInterface
 {
@@ -12,6 +13,8 @@ final class Form implements FormInterface
 
     private String $actionMethod;
 
+    private array|Collection $itemComponentData;
+    private mixed $data;
     private String $actionRoute;
 
     public const UPDATE = 'update';
@@ -48,7 +51,7 @@ final class Form implements FormInterface
 
     public function getActionMethod()
     {
-        return Form::POST;
+        return self::POST;
     }
 
     public function setActionRoute(String $actionRoute)
@@ -60,5 +63,28 @@ final class Form implements FormInterface
     public function getActionRoute()
     {
         return  $this->actionRoute;
+    }
+
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+
+    public function setComponentData($data)
+    {
+        $this->itemComponentData = $data;
+        return $this;
+    }
+
+    public function getComponentData()
+    {
+        return $this->itemComponentData;
     }
 }

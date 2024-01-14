@@ -7,9 +7,12 @@ interface FormInterface
 {
     function getColums();
 
+    function setData(mixed $data);
+
     function setOperationType(String $operation);
+    function setActionRoute(String $actionRoute);
 
     static function init(array $columns): self;
 
-    // function getActionMethod();
+    function setComponentData($componentData);
 }

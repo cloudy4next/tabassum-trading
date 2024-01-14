@@ -1,5 +1,6 @@
 @props(['title'])
 
+{{-- @dd($form) --}}
 <div class="content">
     <div class="card">
         <div class="card-header">
@@ -45,7 +46,7 @@
                                     @break
 
                                     @default
-                                        <input type="password" name="{{ $field->name }}" id="{{ $field->name }}"
+                                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
                                             placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
                                     @break
                                 @endswitch

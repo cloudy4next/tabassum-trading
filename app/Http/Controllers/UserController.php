@@ -14,7 +14,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Cloudy4nextController
 {
-    private $userService;
+    private UserServiceInterface $userService;
+    private const ACTION_ROUTE = 'user_store';
     public function __construct(UserServiceInterface $userService)
     {
         $this->userService = $userService;
@@ -57,25 +58,32 @@ class UserController extends Cloudy4nextController
             Column::init('name'),
             Column::init('email'),
             Column::init('mobile'),
-            Column::init('created_at'),
+            // Column::init('created_at'),
         ];
     }
 
+    public function setComponentData($id)
+    {
+        $data = $this->userService->getUserPermissions($id);
+        return [
+            'user.permission' => [1, 23, 3],
+        ];
+    }
     public function createOperation()
     {
         return [
             Field::init('name', 'Name'),
             Field::init('email', 'Email', 'email'),
             Field::init('mobile', 'Mobile', 'number'),
-            Field::init('password', 'Password', 'password'),
-            // Field::init('permission[]', 'Permission', 'component', $permission, 'user.permission')->setComponentData($componentData);
+            Field::init('password', 'Password', 'text'),
+            Field::init('permission[]', 'Permission', 'component')->setComponent('user.permission')->setData($this->userService->getPermission()),
         ];
     }
 
 
     public function create()
     {
-        $this->configureForm('create', 'user_store');
+        $this->configureForm(self::ACTION_ROUTE);
         return view('home.users.create');
     }
 
@@ -96,11 +104,11 @@ class UserController extends Cloudy4nextController
         $this->userService->delete($id);
         return redirect('users')->with('success', 'User Deleted Successfully');
     }
-    public function edit(Request $request)
+    public function edit(int $id)
     {
-        $user = $this->userService->edit($request->id);
-        $userPermission = [1, 2, 3];
-        $form = $this->configureForm('POST', 'user_update', $user, $userPermission);
-        return view('home.users.edit', compact('form'));
+        $data = $this->userService->edit($id);
+        $componentData = $this->setComponentData($id);
+        $this->initEdit($data, self::ACTION_ROUTE, $componentData);
+        return view('home.users.edit');
     }
 }

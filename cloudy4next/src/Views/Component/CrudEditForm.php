@@ -7,7 +7,7 @@ namespace Cloudy4next\NativeCloud\Views\Component;
 use Cloudy4next\NativeCloud\App\Contracts\FormInterface;
 use Illuminate\Contracts\View\View;
 
-class CrudForm extends AbstractComponent
+class CrudEditForm extends AbstractComponent
 {
     public FormInterface $form;
 
@@ -15,7 +15,8 @@ class CrudForm extends AbstractComponent
     public function render(): View
     {
         $this->form = $this->getCrudBoard()->getForm();
-        return view('native-cloud::curdboard.create');
+
+        return view('native-cloud::curdboard.edit');
 
     }
 }

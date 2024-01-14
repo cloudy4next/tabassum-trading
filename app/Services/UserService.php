@@ -13,7 +13,7 @@ use Spatie\Permission\Models\Permission;
 class UserService implements UserServiceInterface
 {
 
-    public function getData() : Builder
+    public function getData(): Builder
     {
         $query = User::query();
         return $query;
@@ -25,16 +25,18 @@ class UserService implements UserServiceInterface
     }
     public function store(array $data)
     {
+        // dd($data);
         $user = new User();
         $user->name = $data["name"];
         $user->email = $data["email"];
         $user->password = bcrypt($data["password"]);
         $user->save();
 
-        $user->givePermissionTo($data['permission']);
+        // $user->givePermissionTo($data['permission']);
     }
     public function update(Request $request)
     {
+        dd($request);
     }
     public function delete($id)
     {
@@ -50,8 +52,9 @@ class UserService implements UserServiceInterface
         return User::find($id)->toArray();
     }
 
-    public function getPermissions(): array
+    public function getUserPermissions($id)
     {
-        return Auth::user()->permissions;
+        $user = User::find($id);
+        return $user->getAllPermissions();
     }
 }
