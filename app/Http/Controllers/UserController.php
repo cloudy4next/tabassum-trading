@@ -71,6 +71,7 @@ class UserController extends Cloudy4nextController
     }
     public function createOperation()
     {
+
         return [
             Field::init('name', 'Name'),
             Field::init('email', 'Email', 'email'),

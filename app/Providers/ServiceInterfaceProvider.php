@@ -14,6 +14,7 @@ class ServiceInterfaceProvider extends ServiceProvider
         $this->registerServices([
             'User',
             'Retail',
+            'Permission'
         ]);
     }
 

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \Cloudy4next
+ * @method static createForm($createOperation)
+ * @method static createGrid($listOperation, $setup, $CustomButton, $filters)
  */
 class NativeCloudFacade extends Facade
 {

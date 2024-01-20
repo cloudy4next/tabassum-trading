@@ -28,6 +28,27 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
 
+
+    Route::prefix('bank')->group(function () {
+        Route::get('/', [\App\Http\Controllers\BankController::class, 'index'])->name('bank')->middleware('acl:bank');
+        Route::get('/create', [\App\Http\Controllers\BankController::class, 'create'])->name('bank.create')->middleware('acl:bank-create');
+        Route::post('/save', [\App\Http\Controllers\BankController::class, 'store'])->name('bank.store')->middleware('acl:bank-create');
+        Route::get('/edit/{id}', [\App\Http\Controllers\BankController::class, 'edit'])->name('bank.edit')->middleware('acl:bank-update');
+        Route::post('/update', [\App\Http\Controllers\BankController::class, 'update'])->name('bank.update')->middleware('acl:bank-update');
+        Route::get('/delete/{id}', [\App\Http\Controllers\BankController::class, 'delete'])->name('bank.delete')->middleware('acl:bank-delete');
+    });
+
+
+    Route::prefix('product')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ProductController::class, 'index'])->name('product')->middleware('acl:product');
+        Route::get('/create', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.create')->middleware('acl:product-create');
+        Route::post('/save', [\App\Http\Controllers\ProductController::class, 'store'])->name('product.store')->middleware('acl:product-create');
+        Route::get('/edit/{id}', [\App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit')->middleware('acl:product-update');
+        Route::post('/update', [\App\Http\Controllers\ProductController::class, 'update'])->name('product.update')->middleware('acl:product-update');
+        Route::get('/delete/{id}', [\App\Http\Controllers\ProductController::class, 'delete'])->name('product.delete')->middleware('acl:product-delete');
+    });
+
+
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get("/", [DashboardController::class, 'main'])->name('home');
 
@@ -39,10 +60,13 @@ Route::middleware('auth')->group(function () {
         Route::post("/update", [UserController::class, 'update'])->name('user_update')->middleware('acl:users-update');
         Route::get("/delete/{id}", [UserController::class, 'destroy'])->name('user_delete')->middleware('acl:users-delete');
     });
+
+    Route::prefix('permission')->group(function () {
+        Route::get("/", [\App\Http\Controllers\PermissionController::class, 'index'])->name('permission_list')->middleware('acl:permisson');
+
+    });
+
+
 });
 
 
-
-
-
-// ->middleware('acl:users')

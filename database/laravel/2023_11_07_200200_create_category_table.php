@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
+       // Schema::disableForeignKeyConstraints();
 
         Schema::create('category', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type')->default('expense')->comment('could be expense or revene, loss,gain');
+            $table->string('type')->default('expense');
         });
 
-        Schema::enableForeignKeyConstraints();
+       // Schema::enableForeignKeyConstraints();
     }
 
     /**

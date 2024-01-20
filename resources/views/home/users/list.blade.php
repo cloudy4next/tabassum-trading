@@ -2,7 +2,7 @@
 
     <x-slot:title>
         {{ $title ?? 'Cloudy4next' }} :: Users
-    </x-slot>
+    </x-slot:title>
 
     <x-native-cloud::curd-board />
 

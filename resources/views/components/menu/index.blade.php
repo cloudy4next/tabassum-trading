@@ -24,8 +24,15 @@
                     <span class="align-middle">Settings</span>
                 </a>
                 <ul class="sidebar-dropdown list-unstyled collapse show" id="pages" data-bs-parent="#sidebar">
-                    <li class="sidebar-item {{ 'users' == $segment ? 'active' : '' }}"">
+                    <li class="sidebar-item {{ 'users' == $segment ? 'active' : '' }}"
+                    >
                         <a class="sidebar-link" href="/users">Users</a>
+                    </li>
+                    <li class="sidebar-item {{ 'permission' == $segment ? 'active' : '' }}">
+                        <a class="sidebar-link" href="/permission">Permisson</a>
+                    </li>
+                    <li class="sidebar-item {{ 'bank' == $segment ? 'active' : '' }}">
+                        <a class="sidebar-link" href="/bank">Bank</a>
                     </li>
                     {{-- <li class="sidebar-item {{ 'pages-blank' == $segment ? 'active' : '' }}">
                         <a class="sidebar-link" href="pages-blank.html">Blank Page</a>

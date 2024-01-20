@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bank;
 use Cloudy4next\NativeCloud\App\Controller\Cloudy4nextController;
 use Cloudy4next\NativeCloud\App\Field\Button;
 use Cloudy4next\NativeCloud\App\Field\Column;
@@ -9,27 +10,27 @@ use Cloudy4next\NativeCloud\App\Field\Field;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class ProductController extends Cloudy4nextController
+class BankController extends Cloudy4nextController
 {
-    private const ACTION_ROUTE = 'product.store';
+    private const ACTION_ROUTE = 'bank.store';
 
     public function setup(): Builder
     {
-        return Builder; // put your action here
+        return Bank::query(); // put your action here
     }
 
     public function index()
     {
         $this->initGrid();
-        return view('home.product.list');
+        return view('home.bank.list');
     }
 
     public function CustomButton(): array
     {
         return [
-            Button::init(Button::NEW)->setRoute('product.create'),
-            Button::init(Button::EDIT)->setRoute('product.edit'),
-            Button::init(Button::DELETE)->setRoute('product.delete'),
+            Button::init(Button::NEW)->setRoute('bank.create'),
+            Button::init(Button::EDIT)->setRoute('bank.edit'),
+            Button::init(Button::DELETE)->setRoute('bank.delete'),
         ];
     }
 
@@ -39,13 +40,7 @@ class ProductController extends Cloudy4nextController
 
 			Field::init('id'),
 			Field::init('name'),
-			Field::init('barcode'),
-			Field::init('dp'),
-			Field::init('rp'),
-			Field::init('upfront'),
-			Field::init('initial_stock'),
-			Field::init('current_stock'),
-			Field::init('company_id'),
+			Field::init('account_number'),
         ];
     }
 
@@ -55,13 +50,7 @@ class ProductController extends Cloudy4nextController
 
 			Column::init('id'),
 			Column::init('name'),
-			Column::init('barcode'),
-			Column::init('dp'),
-			Column::init('rp'),
-			Column::init('upfront'),
-			Column::init('initial_stock'),
-			Column::init('current_stock'),
-			Column::init('company_id'),
+			Column::init('account_number'),
         ];
     }
 
@@ -77,38 +66,32 @@ class ProductController extends Cloudy4nextController
 
 			Field::init('id'),
 			Field::init('name'),
-			Field::init('barcode'),
-			Field::init('dp'),
-			Field::init('rp'),
-			Field::init('upfront'),
-			Field::init('initial_stock'),
-			Field::init('current_stock'),
-			Field::init('company_id'),
+			Field::init('account_number'),
         ];
     }
 
     public function create()
     {
         $this->configureForm(self::ACTION_ROUTE);
-        return view('home.product.create');
+        return view('home.bank.create');
     }
 
     public function store(Request $request)
     {
         // put your action here
-        return redirect('product')->with('success', 'product Created Successfully');
+        return redirect('bank')->with('success', 'bank Created Successfully');
     }
 
     public function update(Request $request)
     {
        // put your action here
-       return redirect('product')->with('success', 'product Updated Successfully');
+       return redirect('bank')->with('success', 'bank Updated Successfully');
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         // put your action here
-        return redirect('product')->with('success', 'product Deleted Successfully');
+        return redirect('bank')->with('success', 'bank Deleted Successfully');
     }
 
     public function edit(int $id)
@@ -116,6 +99,6 @@ class ProductController extends Cloudy4nextController
 
         // put your action here
         $this->initEdit([], self::ACTION_ROUTE); // put you data here
-        return view('home.product.edit');
+        return view('home.bank.edit');
     }
 }
