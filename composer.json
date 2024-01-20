@@ -29,7 +29,7 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Cloudy4next\\NativeCloud\\": "cloudy4next/src/"
+            "IceAxe\\NativeCloud\\": "IceAxe/src/"
         }
     },
     "autoload-dev": {

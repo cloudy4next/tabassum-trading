@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Cloudy4next\NativeCloud\App\Controller\Cloudy4nextController;
-use Cloudy4next\NativeCloud\App\Field\Button;
-use Cloudy4next\NativeCloud\App\Field\Column;
-use Cloudy4next\NativeCloud\App\Field\Field;
+use IceAxe\NativeCloud\App\Controller\IceAxeController;
+use IceAxe\NativeCloud\App\Field\Button;
+use IceAxe\NativeCloud\App\Field\Column;
+use IceAxe\NativeCloud\App\Field\Field;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class ProductController extends Cloudy4nextController
+class ProductController extends IceAxeController
 {
     private const ACTION_ROUTE = 'product.store';
 

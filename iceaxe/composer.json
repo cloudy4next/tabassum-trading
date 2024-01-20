@@ -1,0 +1,28 @@
+{
+    "name": "iceaxe/native-cloud",
+    "type": "composer-plugin",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "IceAxe\\NativeCloud\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Md. jahangir Hossein",
+            "email": "jahangir720@live.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IceAxe\\NativeCloud\\NativeCloudServiceProvider"
+            ],
+            "aliases": {
+                "NativeCloud": "IceAxe\\NativeCloud\\NativeCloudFacade"
+            }
+        }
+    }
+}

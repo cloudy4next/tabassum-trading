@@ -12,7 +12,7 @@ class GenerateRoutes extends Command
      *
      * @var string
      */
-    protected $signature = 'cloudy4next:routes {--value= : controller name}';
+    protected $signature = 'IceAxe:routes {--value= : controller name}';
     protected $description = 'Generate routes for a given model.';
 
     /**

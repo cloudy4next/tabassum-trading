@@ -6,21 +6,21 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Schema;
 
-class Cloudy4nextCrudGenerator extends Command
+class IceAxeCrudGenerator extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'cloudy4next:crud {model}';
+    protected $signature = 'IceAxe:crud {model}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Cloudy4next Crud Generator Generates Controller ';
+    protected $description = 'IceAxe Crud Generator Generates Controller ';
 
     /**
      * Execute the console command.
@@ -39,7 +39,7 @@ class Cloudy4nextCrudGenerator extends Command
         $this->info("CRUD operations for $modelName generated successfully.");
         $this->comment('Note: Future Request will be introduce Controllers..');
 
-        $this->call('cloudy4next:routes', [
+        $this->call('IceAxe:routes', [
             '--value' => $controllerName,
         ]);
 
