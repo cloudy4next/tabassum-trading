@@ -10,6 +10,6 @@ class Bank extends Model
     use HasFactory;
 
     protected $table = 'bank';
-    protected $guarded =['*'];
-    protected $fillable = ['name'];
+
+    protected $fillable = ['name','account_number'];
 }

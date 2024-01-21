@@ -1,6 +1,6 @@
 <?php
 
-namespace IceAxe\NativeCloud\APP\GridBoard;
+namespace IceAxe\NativeCloud\App\GridBoard;
 
 use IceAxe\NativeCloud\App\Contracts\AbstractCurdBoardInterface;
 

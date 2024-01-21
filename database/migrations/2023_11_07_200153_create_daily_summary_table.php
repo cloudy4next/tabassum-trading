@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('date');
             $table->string('type')->comment('gain/loss');
             $table->float('day_end_amount');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

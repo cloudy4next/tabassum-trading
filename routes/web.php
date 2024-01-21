@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashBoardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BankController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,24 +30,17 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
 
-    Route::prefix('bank')->group(function () {
-        Route::get('/', [\App\Http\Controllers\BankController::class, 'index'])->name('bank')->middleware('acl:bank');
-        Route::get('/create', [\App\Http\Controllers\BankController::class, 'create'])->name('bank.create')->middleware('acl:bank-create');
-        Route::post('/save', [\App\Http\Controllers\BankController::class, 'store'])->name('bank.store')->middleware('acl:bank-create');
-        Route::get('/edit/{id}', [\App\Http\Controllers\BankController::class, 'edit'])->name('bank.edit')->middleware('acl:bank-update');
-        Route::post('/update', [\App\Http\Controllers\BankController::class, 'update'])->name('bank.update')->middleware('acl:bank-update');
-        Route::get('/delete/{id}', [\App\Http\Controllers\BankController::class, 'delete'])->name('bank.delete')->middleware('acl:bank-delete');
-    });
+
+Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
 
 
-    Route::prefix('product')->group(function () {
-        Route::get('/', [\App\Http\Controllers\ProductController::class, 'index'])->name('product')->middleware('acl:product');
-        Route::get('/create', [\App\Http\Controllers\ProductController::class, 'create'])->name('product.create')->middleware('acl:product-create');
-        Route::post('/save', [\App\Http\Controllers\ProductController::class, 'store'])->name('product.store')->middleware('acl:product-create');
-        Route::get('/edit/{id}', [\App\Http\Controllers\ProductController::class, 'edit'])->name('product.edit')->middleware('acl:product-update');
-        Route::post('/update', [\App\Http\Controllers\ProductController::class, 'update'])->name('product.update')->middleware('acl:product-update');
-        Route::get('/delete/{id}', [\App\Http\Controllers\ProductController::class, 'delete'])->name('product.delete')->middleware('acl:product-delete');
-    });
+
+
+Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
+
+
+
+    Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
 
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');

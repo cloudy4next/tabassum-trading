@@ -1,6 +1,6 @@
 <?php
 
-namespace IceAxe\NativeCloud\APP\GridBoard;
+namespace IceAxe\NativeCloud\App\GridBoard;
 
 use IceAxe\NativeCloud\App\Contracts\FormInterface;
 use Illuminate\Support\Collection;
@@ -13,7 +13,7 @@ final class Form implements FormInterface
 
     private String $actionMethod;
 
-    private array|Collection $itemComponentData;
+    private null|array|Collection $itemComponentData;
     private mixed $data;
     private String $actionRoute;
 
@@ -77,7 +77,7 @@ final class Form implements FormInterface
     }
 
 
-    public function setComponentData($data)
+    public function setComponentData($data): Form
     {
         $this->itemComponentData = $data;
         return $this;

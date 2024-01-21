@@ -19,6 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('total_expense');
             $table->bigInteger('total_income');
             $table->float('balance')->comment('will');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

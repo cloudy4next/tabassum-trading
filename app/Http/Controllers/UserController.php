@@ -33,7 +33,7 @@ class UserController extends IceAxeController
         return view('home.users.list');
     }
 
-    public function CustomButton()
+    public function CustomButton(): array
     {
         return [
             Button::init(Button::NEW)->setRoute('user_create'),
@@ -42,7 +42,7 @@ class UserController extends IceAxeController
         ];
     }
 
-    public function filters()
+    public function filters(): array
     {
         return [
             Field::init('name'),
@@ -52,7 +52,7 @@ class UserController extends IceAxeController
         ];
     }
 
-    public function  listOperation()
+    public function  listOperation(): array
     {
         return [
             Column::init('name'),
@@ -69,7 +69,7 @@ class UserController extends IceAxeController
             'user.permission' => [1, 23, 3],
         ];
     }
-    public function createOperation()
+    public function createOperation(): array
     {
         return [
             Field::init('name', 'Name'),

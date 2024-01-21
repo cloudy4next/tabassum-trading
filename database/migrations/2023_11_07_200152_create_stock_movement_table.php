@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('opening_stock');
             $table->integer('quantity_in');
             $table->integer('quantity_out');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

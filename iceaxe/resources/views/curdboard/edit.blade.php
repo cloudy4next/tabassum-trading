@@ -1,7 +1,7 @@
 @props(['title'])
 
 
-{{-- @dd($form->getData()) --}}
+{{--@dd($form->getData())--}}
 <div class="content">
     <div class="card">
         <div class="card-header">

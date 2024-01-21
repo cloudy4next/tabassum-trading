@@ -63,7 +63,7 @@ class PermissionController extends IceAxeController
     }
 
 
-    function createOperation()
+    function createOperation(): array
     {
         // TODO: Implement createOperation() method.
     }

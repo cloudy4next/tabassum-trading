@@ -1,7 +1,7 @@
 <x-main-layout>
 
     <x-slot:title>
-        {{ $title ?? 'IceAxe' }} :: Permission
+        {{ $title ?? 'IceAxe' }} :: {{item}}
     </x-slot:title>
 
     <x-native-cloud::curd-board/>

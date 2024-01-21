@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace IceAxe\NativeCloud\App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
@@ -34,21 +34,13 @@ class GenerateRoutes extends Command
 
         $this->generateRoutes($controllerClass, $controllerName);
         $this->info("Routes for $controllerClass added successfully.");
-        $this->comment('Note: Future new iceAxe route will be introduce..');
     }
 
-    private function generateRoutes($controllerClass, $controllerName): void
+    private function generateRoutes($controllerClass, $methodName): void
     {
         $this->info("Generating routes for $controllerClass...");
+        $routes = "\n\nRoute::iceaxe('$methodName', $controllerClass);\n";
 
-        $routes = "\n\nRoute::prefix('$controllerName')->group(function () {
-            Route::get('/', [$controllerClass, 'index'])->name('$controllerName')->middleware('acl:$controllerName');
-            Route::get('/create', [$controllerClass, 'create'])->name('$controllerName.create')->middleware('acl:$controllerName-create');
-            Route::post('/save', [$controllerClass, 'store'])->name('$controllerName.store')->middleware('acl:$controllerName-create');
-            Route::get('/edit/{id}', [$controllerClass, 'edit'])->name('$controllerName.edit')->middleware('acl:$controllerName-update');
-            Route::post('/update', [$controllerClass, 'update'])->name('$controllerName.update')->middleware('acl:$controllerName-update');
-            Route::get('/delete/{id}', [$controllerClass, 'delete'])->name('$controllerName.delete')->middleware('acl:$controllerName-delete');
-        });\n";
 
 
         $webPath = base_path('routes/web.php');

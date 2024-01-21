@@ -15,6 +15,7 @@ class CrudForm extends AbstractComponent
     public function render(): View
     {
         $this->form = $this->getCrudBoard()->getForm();
+
         return view('native-cloud::curdboard.create');
 
     }

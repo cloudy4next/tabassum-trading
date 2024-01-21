@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('date');
             $table->float('upfront_amount');
             $table->unsignedBigInteger('company_id');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

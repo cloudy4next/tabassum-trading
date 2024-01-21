@@ -2,7 +2,7 @@
 
     <x-slot:title>
         {{ $title ?? 'IceAxe' }} :: Users
-    </x-slot>
+    </x-slot:title>
 
     <x-native-cloud::crud-form title='Create Users'/>
 

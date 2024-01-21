@@ -1,0 +1,7 @@
+<x-main-layout>
+    <x-slot:title>
+        {{ $title ?? 'IceAxe' }} :: {{item}}
+    </x-slot:title>
+
+    <x-native-cloud::crud-edit-form title='Edit {{modelName}} ' />
+</x-main-layout>

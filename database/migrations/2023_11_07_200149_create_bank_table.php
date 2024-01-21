@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->bigInteger('account_number')->nullable();
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();
