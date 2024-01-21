@@ -1,0 +1,98 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use IceAxe\NativeCloud\App\Controller\IceAxeController;
+use IceAxe\NativeCloud\App\Field\Button;
+use IceAxe\NativeCloud\App\Field\Column;
+use IceAxe\NativeCloud\App\Field\Field;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\Request;
+use App\Models\{{model}};
+use App\Http\Requests\{{requestName}};
+
+
+class {{model}}Controller extends IceAxeController
+{
+    private const STORE_ROUTE = '{{modelLow}}.store';
+    private const UPDATE_ROUTE = '{{modelLow}}.update';
+
+
+   public function __construct()
+    {
+
+    }
+
+    public function setup(): Builder
+    {
+        return {{model}}::query();
+    }
+
+    public function index()
+    {
+        $this->initGrid();
+        return view('home.{{modelLow}}.list');
+    }
+
+    public function CustomButton(): array
+    {
+        return [
+            Button::init(Button::NEW)->setRoute('{{modelLow}}.create'),
+            Button::init(Button::EDIT)->setRoute('{{modelLow}}.edit'),
+            Button::init(Button::DELETE)->setRoute('{{modelLow}}.delete'),
+        ];
+    }
+
+    public function filters(): array
+    {
+        return [
+            {{filtersField}}
+        ];
+    }
+
+    public function  listOperation(): array
+    {
+        return [
+           {{listOperationColumns}}
+        ];
+    }
+
+    public function setComponentData($id): array
+    {
+        return [];
+    }
+
+    public function createOperation(): array
+    {
+        return [
+            {{createOperationField}}
+        ];
+    }
+
+    public function create()
+    {
+        $this->configureForm(self::STORE_ROUTE);
+        return view('home.{{modelLow}}.create');
+    }
+
+    public function store({{requestName}} $request)
+    {
+        return redirect('{{modelLow}}')->with('success', '{{model}} Created Successfully');
+    }
+
+    public function update({{requestName}} $request)
+    {
+       return redirect('{{modelLow}}')->with('success', '{{model}} Updated Successfully');
+    }
+
+    public function delete($id)
+    {
+        return redirect('{{modelLow}}')->with('success', '{{model}} Deleted Successfully');
+    }
+
+    public function edit(int $id)
+    {
+        $this->initEdit([], self::UPDATE_ROUTE); // put you data here
+        return view('home.{{modelLow}}.edit');
+    }
+}

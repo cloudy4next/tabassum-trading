@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('amount');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('company');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

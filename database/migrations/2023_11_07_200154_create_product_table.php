@@ -24,6 +24,7 @@ return new class extends Migration
             $table->bigInteger('current_stock');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('company');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();

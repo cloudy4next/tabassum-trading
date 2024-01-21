@@ -2,10 +2,10 @@
     <x-layouts.auth-card>
         <x-slot name="logo">
             {{-- <img
-            src="{{asset('img/cloudy4next.ico')}}"
+            src="{{asset('img/IceAxe.ico')}}"
             class="img-control"
             style="width: 120px; height: 120px"
-            alt="cloudy4next"
+            alt="IceAxe"
           /> --}}
         </x-slot>
 

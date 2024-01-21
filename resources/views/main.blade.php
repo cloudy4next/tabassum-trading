@@ -1,6 +1,6 @@
 <x-main-layout>
     <x-slot:title>
-        {{ $title ?? 'Cloudy4next' }} :: Dashboard
+        {{ $title ?? 'IceAxe' }} :: Dashboard
     </x-slot>
     <div class="content">
         <div class="mb-3">

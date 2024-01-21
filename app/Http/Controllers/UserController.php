@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Contracts\UserServiceInterface;
 
 use App\Http\Requests\UserRequest;
-use Cloudy4next\NativeCloud\App\Controller\Cloudy4nextController;
-use Cloudy4next\NativeCloud\App\Field\Button;
-use Cloudy4next\NativeCloud\App\Field\Column;
-use Cloudy4next\NativeCloud\App\Field\Field;
+use IceAxe\NativeCloud\App\Controller\IceAxeController;
+use IceAxe\NativeCloud\App\Field\Button;
+use IceAxe\NativeCloud\App\Field\Column;
+use IceAxe\NativeCloud\App\Field\Field;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class UserController extends Cloudy4nextController
+class UserController extends IceAxeController
 {
     private UserServiceInterface $userService;
     private const ACTION_ROUTE = 'user_store';
@@ -33,7 +33,7 @@ class UserController extends Cloudy4nextController
         return view('home.users.list');
     }
 
-    public function CustomButton()
+    public function CustomButton(): array
     {
         return [
             Button::init(Button::NEW)->setRoute('user_create'),
@@ -42,7 +42,7 @@ class UserController extends Cloudy4nextController
         ];
     }
 
-    public function filters()
+    public function filters(): array
     {
         return [
             Field::init('name'),
@@ -52,7 +52,7 @@ class UserController extends Cloudy4nextController
         ];
     }
 
-    public function  listOperation()
+    public function  listOperation(): array
     {
         return [
             Column::init('name'),
@@ -69,9 +69,8 @@ class UserController extends Cloudy4nextController
             'user.permission' => [1, 23, 3],
         ];
     }
-    public function createOperation()
+    public function createOperation(): array
     {
-
         return [
             Field::init('name', 'Name'),
             Field::init('email', 'Email', 'email'),

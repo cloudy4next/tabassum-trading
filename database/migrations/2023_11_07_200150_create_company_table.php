@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('bank_id');
             $table->foreign('bank_id')->references('id')->on('bank');
             $table->float('current_balance');
+            $table->timestamps();
         });
 
         Schema::enableForeignKeyConstraints();
