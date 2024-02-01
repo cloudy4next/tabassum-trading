@@ -62,7 +62,7 @@ class UserController extends IceAxeController
         ];
     }
 
-    public function setComponentData($id)
+    public function setComponentData($id): array
     {
         $data = $this->userService->getUserPermissions($id);
         return [

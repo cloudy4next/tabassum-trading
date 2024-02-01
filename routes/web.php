@@ -30,14 +30,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
 
+    Route::iceaxe('sales', \App\Http\Controllers\SalesController::class);
 
-Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
-
-
-
-
-Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
-
+    Route::iceaxe('product', \App\Http\Controllers\ProductController::class);
 
 
     Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
@@ -58,6 +53,11 @@ Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
     Route::prefix('permission')->group(function () {
         Route::get("/", [\App\Http\Controllers\PermissionController::class, 'index'])->name('permission_list')->middleware('acl:permisson');
 
+    });
+    Route::prefix('stock')->group(function () {
+        Route::get('/', 'StockController@index');
+        Route::get('/create', 'StockController@create');
+        Route::post('/stock', 'StockController@store');
     });
 
 

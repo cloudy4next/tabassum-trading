@@ -3,16 +3,16 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\{{model}};
+use App\Models\Sales;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class {{model}}Service
+class SalesService
 {
 
     public function getData(): Builder
     {
-       return {{model}}::query();
+       return Sales::query();
     }
 
     public function store(Request $request)
@@ -30,6 +30,18 @@ class {{model}}Service
     public function edit($id) : array
     {
         // put your method
+    }
+
+    public function calculateRevenue()
+    {
+        $sales = Sales::all();
+        $totalRevenue = 0;
+
+        foreach ($sales as $sale) {
+            $totalRevenue += $sale->getTotalSaleAmount();
+        }
+
+        return $totalRevenue;
     }
 
 

@@ -9,6 +9,10 @@ class StockMovement extends Model
 {
     use HasFactory;
 
-    protected $guarded =['*'];
+
+    protected $table = 'stock_movement';
+
+    protected $guarded =[];
     protected $fillable = ['*'];
+
 }

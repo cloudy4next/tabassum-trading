@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\{{model}};
 use App\Http\Requests\{{requestName}};
+use App\Services\{{model}}Service;
 
 
 class {{model}}Controller extends IceAxeController
@@ -17,15 +18,17 @@ class {{model}}Controller extends IceAxeController
     private const STORE_ROUTE = '{{modelLow}}.store';
     private const UPDATE_ROUTE = '{{modelLow}}.update';
 
+    private {{model}}Service ${{modelLow}}Service;
 
-   public function __construct()
+    public function __construct({{model}}Service ${{modelLow}}Service)
     {
-
+        $this->{{modelLow}}Service = ${{modelLow}}Service;
     }
+
 
     public function setup(): Builder
     {
-        return {{model}}::query();
+        return $this->{{modelLow}}Service->getData();
     }
 
     public function index()
@@ -77,22 +80,26 @@ class {{model}}Controller extends IceAxeController
 
     public function store({{requestName}} $request)
     {
+        $this->{{modelLow}}Service->store($request);
         return redirect('{{modelLow}}')->with('success', '{{model}} Created Successfully');
     }
 
     public function update({{requestName}} $request)
     {
+       $this->{{modelLow}}Service->update($request);
        return redirect('{{modelLow}}')->with('success', '{{model}} Updated Successfully');
     }
 
     public function delete($id)
     {
+        $this->{{modelLow}}Service->delete($id);
         return redirect('{{modelLow}}')->with('success', '{{model}} Deleted Successfully');
     }
 
     public function edit(int $id)
     {
-        $this->initEdit([], self::UPDATE_ROUTE); // put you data here
+        $data = $this->{{modelLow}}Service->edit($id);
+        $this->initEdit($data, self::UPDATE_ROUTE);
         return view('home.{{modelLow}}.edit');
     }
 }
