@@ -36,22 +36,9 @@ class NativeCloudServiceProvider extends ServiceProvider
 
     protected function configureRoutes(): void
     {
-        Route::middleware('web')
+        Route::middleware(['web', 'auth'])
             ->namespace($this->namespace) // Use $this->namespace
             ->group(base_path('routes/web.php'));
     }
-//
-//    protected function registerTestRoutes(): void
-//    {
-//        Route::macro('iceaxe', function ($name, $controller) {
-//            $crudMethods = [
-//                'index', 'create', 'store', 'show', 'edit', 'update', 'destroy'
-//            ];
-//
-//            foreach ($crudMethods as $method) {
-//                Route::{$method}("/$name/$method", [$controller, $method])->name("$name.$method");
-//            }
-//        });
-//    }
 
 }

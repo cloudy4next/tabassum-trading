@@ -3,16 +3,16 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\{{model}};
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
-class {{model}}Service
+class ProductService
 {
 
     public function getData(): Builder
     {
-       return {{model}}::query();
+        return Product::query();
     }
 
     public function store(Request $request)

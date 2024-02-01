@@ -40,6 +40,17 @@
                 </ul>
             </li>
 
+            <li class="sidebar-item {{ 'stock' == $segment ? 'active' : '' }}">
+                <a class="sidebar-link" href="/stock">Stock</a>
+            </li>
+            <li class="sidebar-item {{ 'product' == $segment ? 'active' : '' }}">
+                <a class="sidebar-link" href="/product">Product</a>
+            </li>
+            <li class="sidebar-item {{ 'sales' == $segment ? 'active' : '' }}">
+                <a class="sidebar-link" href="/sales">Sales</a>
+            </li>
+
+
             {{-- <li
                 class="sidebar-item {{ in_array($segment, ['pages', 'pages-settings', 'pages-blank']) ? 'active' : '' }}">
                 <a class="sidebar-link" data-bs-target="#pages" data-bs-toggle="collapse">

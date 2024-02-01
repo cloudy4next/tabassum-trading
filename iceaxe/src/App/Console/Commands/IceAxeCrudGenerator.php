@@ -47,6 +47,11 @@ class IceAxeCrudGenerator extends Command
         $this->generateCRUD($modelName, $modelClass, $requestName);
         $this->info("CRUD operations for $modelName generated successfully.");
 
+        //Generate Services
+        $this->generateService($modelName);
+        $this->info("CRUD operations for $modelName Service generated successfully.");
+
+
         // Generate Route
         $this->call('IceAxe:routes', [
             '--value' => $controllerName,
@@ -59,17 +64,30 @@ class IceAxeCrudGenerator extends Command
 
     }
 
-    private function generateCRUD($modelName, $modelClass,$requestName): void
+    private function generateService($model)
+    {
+        $servicePath = app_path("Services/{$model}Service.php");
+        if (File::exists($servicePath)) {
+            $this->error("Service $model already exists!");
+            return;
+        }
+
+        $stub = $this->getStubContent('service');
+        $stub = str_replace('{{model}}', $model, $stub);
+
+        File::put($servicePath, $stub);
+    }
+
+    private function generateCRUD($modelName, $modelClass, $requestName): void
     {
         $this->info("Generating CRUD operations for $modelClass...");
-
-        $columns = Schema::getColumnListing($modelName);
-
-        $this->generateController($modelName, $columns,$requestName);
+        $snakeCase = lcfirst(preg_replace('/([a-z])([A-Z])/', '$1_$2', $modelName));
+        $columns = Schema::getColumnListing($snakeCase);
+        $this->generateController($modelName, $columns, $requestName);
 
     }
 
-    private function generateController($modelName, $columns,$requestName): void
+    private function generateController($modelName, $columns, $requestName): void
     {
         $controllerPath = app_path("Http/Controllers/{$modelName}Controller.php");
 
@@ -78,7 +96,7 @@ class IceAxeCrudGenerator extends Command
             return;
         }
 
-        $stub = $this->getStubContent();
+        $stub = $this->getStubContent('controller');
         $stub = str_replace('{{requestName}}', $requestName, $stub);
         $stub = str_replace('{{model}}', $modelName, $stub);
         $stub = str_replace('{{modelLow}}', strtolower($modelName), $stub);
@@ -101,9 +119,9 @@ class IceAxeCrudGenerator extends Command
         return $columns;
     }
 
-    private function getStubContent(): bool|string
+    private function getStubContent($name): bool|string
     {
-        $stubPath = __DIR__ . '/stubs/controller.stub';
+        $stubPath = __DIR__ . '/stubs/' . $name . '.stub';
         return file_get_contents($stubPath);
     }
 
