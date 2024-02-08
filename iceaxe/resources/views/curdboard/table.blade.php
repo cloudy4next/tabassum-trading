@@ -2,6 +2,7 @@
 
 <x-native-cloud::curd-board-filter :filters="$grid->getFilter()" />
 
+@dd($grid);
 <div class="content">
 
     @foreach ($grid->getButtons() as $button)

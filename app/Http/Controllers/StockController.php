@@ -32,24 +32,17 @@ class StockController extends Controller
 
     private function calculateDailyOpeningStock()
     {
-        // Get today's date
         $today = now()->toDateString();
 
-        // Retrieve the last recorded closing stock for the previous day
         $lastClosingStock = StockMovement::where('date', '<', $today)
             ->orderBy('date', 'desc')
             ->first();
 
-        // If there's no previous record, use the initial stock
         if (!$lastClosingStock) {
-            $initialStock = Product::sum('initial_stock');
-            return $initialStock;
+            return Product::sum('initial_stock');
         }
 
-        // Calculate the opening stock for today
-        $openingStock = $lastClosingStock->closing_stock;
-
-        return $openingStock;
+        return $lastClosingStock->closing_stock;
     }
 
 }

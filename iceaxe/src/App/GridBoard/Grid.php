@@ -21,6 +21,7 @@ final class Grid implements GridInterface
         $this->data = $this->setPagination($modelData);
         $this->buttons = $buttons;
         $this->filters = $filters;
+
     }
 
     public static function init(array $columns,  $modelData, array $buttons, array $filters): self
@@ -32,12 +33,12 @@ final class Grid implements GridInterface
     {
         return $this->data;
     }
-    public function getFilter()
+    public function getFilter(): ?array
     {
         return $this->filters;
     }
 
-    public function getButtons()
+    public function getButtons(): ?array
     {
         return $this->buttons;
     }

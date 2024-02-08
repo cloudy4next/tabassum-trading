@@ -43,9 +43,9 @@ final class NativeCloudService extends AbstractCrudBoard implements NativeCloudI
     public function setSetup(Builder $model): Builder
     {
         $this->model = $model;
-        return $this;
+
     }
-    public function getSetup()
+    public function getSetup(): Builder
     {
         return $this->model;
     }

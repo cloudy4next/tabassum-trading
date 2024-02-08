@@ -60,7 +60,6 @@ class SalesController extends IceAxeController
     public function listOperation(): array
     {
         return [
-
             Column::init('product_id'),
             Column::init('retail_id'),
             Column::init('qty'),
@@ -80,10 +79,17 @@ class SalesController extends IceAxeController
     {
         return [
 
-            Field::init('product_id'),
+            Field::init('name', 'Product Name', 'select2',
+                [
+                    'entity' => 'product',
+                    'model' => '\App\Models\Product',
+                    'foreign_key' => 'product_id',
+                ]
+
+            ),
             Field::init('retail_id'),
             Field::init('qty'),
-            Field::init('date'),
+            Field::init('date', 'Date', 'date',),
         ];
     }
 

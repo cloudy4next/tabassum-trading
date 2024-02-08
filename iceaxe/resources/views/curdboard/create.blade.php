@@ -1,6 +1,6 @@
 @props(['title'])
 
-{{-- @dd($form) --}}
+@dd($form)
 <div class="content">
     <div class="card">
         <div class="card-header">
@@ -30,25 +30,47 @@
                                         <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control">
                                             <option value="">{{ $field->placeholder ?? 'Select ' . $field->label }}
                                             </option>
-                                            @foreach ($field->options as $option)
-                                                <option value="{{ $option['value'] }}">{{ $option['label'] }}</option>
+                                            @foreach ($field->options as $key =>$value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
                                             @endforeach
                                         </select>
-                                    @break
+                                        @break
 
                                     @case($field->type == 'component')
-                                        <x-dynamic-component :component="$field->component" :value="$field->value ?? null" />
-                                    @break
+                                        <x-dynamic-component :component="$field->component"
+                                                             :value="$field->value ?? null"/>
+                                        @break
+
+                                    @case($field->type == 'date')
+                                        <input type="date" name="{{ $field->name }}" id="{{ $field->name }}"
+                                               placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
+                                        @break
+
+                                    @case($field->type == 'datetime')
+                                        <input type="datetime-local" name="{{ $field->name }}" id="{{ $field->name }}"
+                                               placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
+                                        @break
+
+                                    @case($field->type == 'select2')
+                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control">
+                                            <option value="">{{ $field->placeholder ?? 'Select ' . $field->label }}
+                                            </option>
+                                            @foreach ($field->getOptions() as $key =>$value)
+                                                <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                        @break
+
 
                                     @case($field->type == 'password')
                                         <input type="password" name="{{ $field->name }}" id="{{ $field->name }}"
-                                            placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
-                                    @break
+                                               placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
+                                        @break
 
                                     @default
                                         <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                                            placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
-                                    @break
+                                               placeholder="{{ $field->placeholder ?? '' }}" class="form-control">
+                                        @break
                                 @endswitch
                             </div>
                         @endforeach

@@ -55,12 +55,13 @@ abstract class IceAxeController extends Controller implements IceAxeInterface
     abstract public function CustomButton():array;
 
     abstract public function filters(): array;
+
     /**
      * @param mixed $id to find corresponding data of item.
      *
      * @return array should like this [componentName => componentData,etc...]
      */
-    abstract public function setComponentData($id);
+    abstract public function setComponentData($id): array;
 
 
 }

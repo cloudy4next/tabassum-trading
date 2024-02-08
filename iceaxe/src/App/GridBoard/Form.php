@@ -32,40 +32,40 @@ final class Form implements FormInterface
         return new self($columns);
     }
 
-    public function getColums()
+    public function getColums(): ?array
     {
         return $this->columns;
     }
 
-    public function setOperationType(String $operation)
+    public function setOperationType(String $operation): static
     {
         $this->operation = $operation;
         return $this;
     }
 
-    public function getOperationType()
+    public function getOperationType(): string
     {
         return  $this->operation;
     }
 
 
-    public function getActionMethod()
+    public function getActionMethod(): string
     {
         return self::POST;
     }
 
-    public function setActionRoute(String $actionRoute)
+    public function setActionRoute(String $actionRoute): static
     {
         $this->actionRoute = $actionRoute;
         return $this;
     }
 
-    public function getActionRoute()
+    public function getActionRoute(): string
     {
         return  $this->actionRoute;
     }
 
-    public function setData($data)
+    public function setData($data): Form
     {
         $this->data = $data;
         return $this;
@@ -83,7 +83,7 @@ final class Form implements FormInterface
         return $this;
     }
 
-    public function getComponentData()
+    public function getComponentData(): array|Collection|null
     {
         return $this->itemComponentData;
     }

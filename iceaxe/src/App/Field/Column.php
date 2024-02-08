@@ -3,25 +3,16 @@
 namespace IceAxe\NativeCloud\App\Field;
 
 
-class Column
+class Column extends TypeGenerators
 {
     public string $name;
     public ?string $label;
 
 
-    public function __construct(string $name, ?string $label)
-    {
-        $this->name = $name;
-        $this->label = $label;
-    }
-
     public static function init(string $name, ?string $label = null): self
     {
 
-        return new static($name, $label ?? self::humnize($name));
+        return new static($name, $label ?? self::humanize($name));
     }
-    private static function humnize(string $needle): string
-    {
-        return ucwords(str_replace('_', ' ', $needle));
-    }
+
 }
