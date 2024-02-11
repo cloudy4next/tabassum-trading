@@ -13,12 +13,6 @@ class Field extends TypeGenerators
 {
 
 
-    public static function init(string $name, ?string $label = null, ?string $type = TypeConstants::TEXT,?array $params= null ): self
-    {
-        $newPlaceHolder = self::humanize($name) . '...';
-
-        return new static($name, $label ?? self::humanize($name), $type ?? TypeConstants::TEXT, $newPlaceHolder, $params);
-    }
 
 
     public function setData(mixed $value): self

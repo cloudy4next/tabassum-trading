@@ -1,6 +1,6 @@
 @props(['title'])
 
-@dd($form)
+{{--@dd($form)--}}
 <div class="content">
     <div class="card">
         <div class="card-header">
@@ -32,6 +32,17 @@
                                             </option>
                                             @foreach ($field->options as $key =>$value)
                                                 <option value="{{ $key }}">{{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                        @break
+
+                                    @case($field->type == 'select2')
+
+                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control">
+                                            <option value="">{{ $field->placeholder ?? 'Select ' . $field->label }}
+                                            </option>
+                                            @foreach ($form->getRelationalData($field->getFeatureBuilder()->getModel(),$field->getFeatureBuilder()->getAttribute()) as $key =>$value)
+                                                <option value="{{ $value->id }}">{{ $value->{$field->getFeatureBuilder()->getAttribute()} }}</option>
                                             @endforeach
                                         </select>
                                         @break

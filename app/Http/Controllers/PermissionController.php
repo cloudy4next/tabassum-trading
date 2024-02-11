@@ -56,7 +56,7 @@ class PermissionController extends IceAxeController
         ];
     }
 
-    public function setComponentData($id): array
+    public function setComponentData(mixed $id): array
     {
         return [
         ];

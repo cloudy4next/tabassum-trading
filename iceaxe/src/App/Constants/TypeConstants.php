@@ -4,6 +4,7 @@ namespace IceAxe\NativeCloud\App\Constants;
 
 enum TypeConstants
 {
+    public const ATTRIBUTE = 'attribute';
     public const OPTIONS = 'options';
     public const TEXT = 'text';
     public const SELECT2 = 'text';

@@ -27,7 +27,7 @@ class NativeCloudServiceProvider extends ServiceProvider
     public function register(): void
     {
         include_once __DIR__ . '/macros.php';
-        $this->app->singleton(NativeCloudInterface::class, NativeCloudService::class);
+        $this->app->scoped(NativeCloudInterface::class, NativeCloudService::class);
         $this->commands($this->commands);
     }
 

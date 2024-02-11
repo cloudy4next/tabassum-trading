@@ -8,17 +8,17 @@
             return storedTheme;
         }
 
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
+        return window.matchMedia("(prefers-color-scheme: light)").matches
+            ? "light"
             : "light";
     };
 
     const setTheme = function (theme) {
         if (
             theme === "auto" &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches
+            window.matchMedia("(prefers-color-scheme: light)").matches
         ) {
-            document.documentElement.setAttribute("data-bs-theme", "dark");
+            document.documentElement.setAttribute("data-bs-theme", "light");
         } else {
             document.documentElement.setAttribute("data-bs-theme", theme);
         }

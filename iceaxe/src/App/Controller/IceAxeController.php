@@ -19,7 +19,7 @@ abstract class IceAxeController extends Controller implements IceAxeInterface
     public function initGrid(): static
     {
 
-        NativeCloudFacade::createGrid($this->listOperation(), $this->setup(), $this->CustomButton(), $this->filters());
+        NativeCloudFacade::createGrid($this->listOperation(), $this->CustomButton(), $this->filters());
         return $this;
     }
 
@@ -61,7 +61,7 @@ abstract class IceAxeController extends Controller implements IceAxeInterface
      *
      * @return array should like this [componentName => componentData,etc...]
      */
-    abstract public function setComponentData($id): array;
+    abstract public function setComponentData(mixed $id): array;
 
 
 }

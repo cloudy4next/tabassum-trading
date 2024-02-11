@@ -9,6 +9,7 @@ use IceAxe\NativeCloud\App\Controller\IceAxeController;
 use IceAxe\NativeCloud\App\Field\Button;
 use IceAxe\NativeCloud\App\Field\Column;
 use IceAxe\NativeCloud\App\Field\Field;
+use IceAxe\NativeCloud\Facades\NativeCloudFacade as GridBoard;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -18,6 +19,8 @@ class UserController extends IceAxeController
     private const ACTION_ROUTE = 'user_store';
     public function __construct(UserServiceInterface $userService)
     {
+        GridBoard::setModel('\App\Models\User');
+
         $this->userService = $userService;
     }
 
@@ -62,7 +65,7 @@ class UserController extends IceAxeController
         ];
     }
 
-    public function setComponentData($id): array
+    public function setComponentData(mixed $id): array
     {
         $data = $this->userService->getUserPermissions($id);
         return [

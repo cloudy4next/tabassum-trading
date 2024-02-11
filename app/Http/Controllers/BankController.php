@@ -6,6 +6,7 @@ use IceAxe\NativeCloud\App\Controller\IceAxeController;
 use IceAxe\NativeCloud\App\Field\Button;
 use IceAxe\NativeCloud\App\Field\Column;
 use IceAxe\NativeCloud\App\Field\Field;
+use IceAxe\NativeCloud\Facades\NativeCloudFacade as Grid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\Bank;
@@ -20,7 +21,7 @@ class BankController extends IceAxeController
 
    public function __construct()
     {
-
+        Grid::setModel('\App\Models\Bank');
     }
 
     public function setup(): Builder
@@ -52,7 +53,6 @@ class BankController extends IceAxeController
 			Field::init('name'),
 			Field::init('account_number'),
 			Field::init('created_at'),
-			Field::init('updated_at'),
         ];
     }
 
@@ -63,11 +63,11 @@ class BankController extends IceAxeController
 			Column::init('name'),
 			Column::init('account_number'),
 			Column::init('created_at'),
-			Column::init('updated_at'),
+
         ];
     }
 
-    public function setComponentData($id): array
+    public function setComponentData(mixed $id): array
     {
         return [];
     }
@@ -78,8 +78,6 @@ class BankController extends IceAxeController
 
 			Field::init('name'),
 			Field::init('account_number'),
-			Field::init('created_at'),
-			Field::init('updated_at'),
         ];
     }
 

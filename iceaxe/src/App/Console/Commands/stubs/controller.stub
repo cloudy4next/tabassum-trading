@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use App\Models\{{model}};
 use App\Http\Requests\{{requestName}};
 use App\Services\{{model}}Service;
+use IceAxe\NativeCloud\Facades\NativeCloudFacade as Grid;
+
 
 
 class {{model}}Controller extends IceAxeController
@@ -22,6 +24,7 @@ class {{model}}Controller extends IceAxeController
 
     public function __construct({{model}}Service ${{modelLow}}Service)
     {
+        Grid::setModel('\App\Models\{{model}}');
         $this->{{modelLow}}Service = ${{modelLow}}Service;
     }
 

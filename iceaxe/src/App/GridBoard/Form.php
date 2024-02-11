@@ -3,10 +3,12 @@
 namespace IceAxe\NativeCloud\App\GridBoard;
 
 use IceAxe\NativeCloud\App\Contracts\FormInterface;
+use IceAxe\NativeCloud\App\Traits\GridTrait;
 use Illuminate\Support\Collection;
 
 final class Form implements FormInterface
 {
+    use GridTrait;
     private ?array $columns;
 
     private String $operation;
@@ -87,4 +89,6 @@ final class Form implements FormInterface
     {
         return $this->itemComponentData;
     }
+
+
 }

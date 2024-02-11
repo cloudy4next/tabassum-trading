@@ -12,4 +12,9 @@ class Retails extends Model
     protected $guarded =['*'];
 
     protected $fillable = ['*'];
+
+    public function sales()
+    {
+        return $this->belongsTo(Sales::class, 'retail_id', 'id');
+    }
 }

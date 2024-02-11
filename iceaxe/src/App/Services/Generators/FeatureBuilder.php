@@ -11,10 +11,11 @@ final class FeatureBuilder
 
     private ?string $entity;
     private ?string $model;
+    private ?string $attribute;
     private ?string $foreign_key;
     private ?bool $pivot;
 
-    public array $select2;
+    public string $select2;
 
     public array $select;
 
@@ -22,6 +23,7 @@ final class FeatureBuilder
 
     public function __construct($type, $params)
     {
+        $this->attribute = $params[TypeConstants::ATTRIBUTE] ?? 'name';
         $this->options = $params[TypeConstants::OPTIONS] ?? [];
         $this->pivot = $params[TypeConstants::PIVOT] ?? false;
         $this->entity = $params[TypeConstants::ENTITY] ?? null;
@@ -37,6 +39,11 @@ final class FeatureBuilder
         return $this->entity;
     }
 
+    public function getAttribute(): ?string
+    {
+        return $this->attribute;
+    }
+
     public function getModel(): ?string
     {
         return $this->model;
@@ -47,15 +54,10 @@ final class FeatureBuilder
         return $this->foreign_key;
     }
 
-    public function getSelect2(): ?array
+    public function getSelect2(): ?string
     {
-        $this->select2 = [
-            'entity' => $this->entity,
-            'model' => $this->model,
-            'foreign_key' => $this->foreign_key,
-            'pivot' => $this->pivot
-        ];
-        return $this->select2;
+
+        return $this->entity . '->' . $this->attribute;
     }
 
     private function getSelect(): array

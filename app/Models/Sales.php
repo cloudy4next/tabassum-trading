@@ -23,4 +23,14 @@ class Sales extends Model
 
         return $totalSaleAmount - ($this->quantity_sold * $productCost);
     }
+
+   public function product()
+   {
+       return $this->HasMany(Product::class,'id','product_id'  );
+   }
+
+    public function retails()
+    {
+        return $this->HasMany(Retails::class,'id','retail_id'  );
+    }
 }

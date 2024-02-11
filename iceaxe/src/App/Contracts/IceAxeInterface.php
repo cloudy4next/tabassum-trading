@@ -18,5 +18,5 @@ interface IceAxeInterface
      *
      * @return array should like this [componentName => componentData,etc...]
      */
-    function setComponentData($id);
+    function setComponentData(mixed $id): array;
 }

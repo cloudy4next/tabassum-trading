@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \IceAxe
  * @method static createForm($createOperation)
- * @method static createGrid($listOperation, $setup, $CustomButton, $filters)
+ * @method static createGrid($listOperation, $CustomButton, $filters)
  */
 class NativeCloudFacade extends Facade
 {

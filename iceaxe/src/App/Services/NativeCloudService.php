@@ -13,20 +13,26 @@ final class NativeCloudService extends AbstractCrudBoard implements NativeCloudI
 {
     private GridInterface $grid;
     private FormInterface $form;
+    private Builder $data;
+    private string|\Illuminate\Database\Eloquent\Builder $model;
 
-    private Builder $model;
-
-    public function createGrid($columns, $model, $buttons, $filters): GridInterface
+    public function createGrid($columns, $buttons, $filters): GridInterface
     {
 
-        $this->grid = Grid::init($columns, $model, $buttons, $filters);
-
+        $this->grid = Grid::init($columns, $buttons, $filters);
+        $this->grid->setModel($this->model);
         return $this->grid;
     }
 
+    public function setModel($model)
+    {
+        $this->model = $model;
+    }
+
+
     public function getGrid(): GridInterface
     {
-        return  $this->grid;
+        return $this->grid;
     }
 
     public function getForm(): FormInterface
@@ -40,13 +46,15 @@ final class NativeCloudService extends AbstractCrudBoard implements NativeCloudI
         return $this->form;
     }
 
-    public function setSetup(Builder $model): Builder
+    public function setSetup(Builder $data): Builder
     {
-        $this->model = $model;
+        $this->data = $data;
 
     }
+
     public function getSetup(): Builder
     {
-        return $this->model;
+        return $this->data;
     }
+
 }

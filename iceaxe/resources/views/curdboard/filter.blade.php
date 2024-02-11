@@ -9,9 +9,9 @@
             <form id="filterForm" method="GET" action="{{ url()->current() }}">
                 <div class="row mb-2">
                     @foreach ($filters as $filter)
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-3">
                             <label for="{{ $filter->name }}">{{ $filter->label }}:</label>
-                            @if ($filter->type == 'text')
+                            @if ($filter->type == 'text' || $filter->type == 'select2')
                                 <input type="text" name="{{ $filter->name }}" id="{{ $filter->name }}"
                                     placeholder="{{ $filter->placeholder ?? '' }}" class="form-control">
                             @elseif ($filter->type == 'select')
@@ -38,6 +38,7 @@
         </div>
     </div>
 </div>
+
 
 <script>
     function clearFilters() {

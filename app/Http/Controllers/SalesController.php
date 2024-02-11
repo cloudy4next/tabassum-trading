@@ -6,6 +6,7 @@ use IceAxe\NativeCloud\App\Controller\IceAxeController;
 use IceAxe\NativeCloud\App\Field\Button;
 use IceAxe\NativeCloud\App\Field\Column;
 use IceAxe\NativeCloud\App\Field\Field;
+use IceAxe\NativeCloud\Facades\NativeCloudFacade as Grid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Models\Sales;
@@ -22,12 +23,14 @@ class SalesController extends IceAxeController
 
     public function __construct(SalesService $salesService)
     {
+        Grid::setModel('\App\Models\Sales');
         $this->salesService = $salesService;
     }
 
 
     public function setup(): Builder
     {
+
         return $this->salesService->getData();
     }
 
@@ -60,8 +63,24 @@ class SalesController extends IceAxeController
     public function listOperation(): array
     {
         return [
-            Column::init('product_id'),
-            Column::init('retail_id'),
+            Column::init('product_id', 'Product Name', 'select2',
+                [
+                    'entity' => 'product',
+                    'model' => '\App\Models\Product',
+                    'foreign_key' => 'product_id',
+                    'attribute' => 'name',
+                ]
+
+            ),
+            Column::init('retail_id', 'Product Name', 'select2',
+                [
+                    'entity' => 'retails',
+                    'model' => '\App\Models\Retails',
+                    'foreign_key' => 'retail_id',
+                     'attribute' => 'retail_name',
+                ]
+
+            ),
             Column::init('qty'),
             Column::init('sale_amount'),
             Column::init('date'),
@@ -70,7 +89,7 @@ class SalesController extends IceAxeController
         ];
     }
 
-    public function setComponentData($id): array
+    public function setComponentData(mixed $id): array
     {
         return [];
     }
@@ -79,7 +98,7 @@ class SalesController extends IceAxeController
     {
         return [
 
-            Field::init('name', 'Product Name', 'select2',
+            Field::init('product_id', 'Product Name', 'select2',
                 [
                     'entity' => 'product',
                     'model' => '\App\Models\Product',
@@ -87,7 +106,16 @@ class SalesController extends IceAxeController
                 ]
 
             ),
-            Field::init('retail_id'),
+
+            Field::init('retail_id', 'Retail Name', 'select2',
+                [
+                    'entity' => 'retails',
+                    'model' => '\App\Models\Retails',
+                    'foreign_key' => 'retail_id',
+                    'attribute' => 'retail_name',
+                ]
+
+            ),
             Field::init('qty'),
             Field::init('date', 'Date', 'date',),
         ];

@@ -12,4 +12,9 @@ class Product extends Model
     protected $table = 'product';
     protected $guarded = [];
     protected $fillable = ['id'];
+
+    public function sales()
+    {
+        return $this->belongsTo(Sales::class, 'product_id', 'id');
+    }
 }

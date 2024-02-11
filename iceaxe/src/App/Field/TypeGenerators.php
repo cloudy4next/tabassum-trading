@@ -25,7 +25,7 @@ abstract class TypeGenerators
      * @param string|null $placeHolder
      * @param array|null $params
      */
-    public function __construct(string $name, ?string $label, ?string $type = TypeConstants::TEXT, ?string $placeHolder = null, ?array $params = null)
+    public function __construct(string $name, ?string $label, string $type = TypeConstants::TEXT, ?string $placeHolder = null, ?array $params = null)
     {
         $this->name = $name;
         $this->label = $label;
@@ -35,9 +35,27 @@ abstract class TypeGenerators
 
     }
 
+    public static function init(string $name, ?string $label = null, ?string $type = TypeConstants::TEXT,?array $params= null ): self
+    {
+        $newPlaceHolder = self::humanize($name) . '...';
+
+        return new static($name, $label ?? self::humanize($name), $type ?? TypeConstants::TEXT, $newPlaceHolder, $params);
+    }
+
+
     protected static function humanize(string $needle): string
     {
         return ucwords(str_replace('_', ' ', $needle));
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function getFeatureBuilder(): ?FeatureBuilder
+    {
+        return $this->featureBuilder;
     }
 
 

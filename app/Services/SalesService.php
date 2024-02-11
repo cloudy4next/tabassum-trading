@@ -17,7 +17,7 @@ class SalesService
 
     public function store(Request $request)
     {
-         // put your method
+         dd($request);
     }
     public function update(Request $request)
     {

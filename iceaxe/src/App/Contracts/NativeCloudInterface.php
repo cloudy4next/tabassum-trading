@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 
 interface NativeCloudInterface
 {
-    function createGrid($columns, $data, $filters, $buttons): GridInterface;
+    function createGrid($columns, $filters, $buttons): GridInterface;
     function getGrid(): GridInterface;
-
     function setSetup(Builder $model): Builder;
     function getForm(): FormInterface;
+    function setModel($model);
 }
