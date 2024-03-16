@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class RetailSalesHistory extends Model
 {
     use HasFactory;
-    protected $guarded =['*'];
+
+    protected $table = 'retail_sales_history';
+    protected $guarded =[];
     protected $fillable = ['*'];
 }

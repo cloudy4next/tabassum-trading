@@ -22,3 +22,40 @@ window.gridDeleteConfirm = function(el)
     });
    return false;
 }
+
+window.toastFire = (type, msg) => {
+    Swal.fire({
+        toast: true,
+        timer: 3000,
+        showCloseButton: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timerProgressBar: true,
+        text: msg,
+        icon: type,
+        onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
+}
+
+window.toastFireWithAction = (type, response) => {
+    Swal.fire({
+        toast: true,
+        timer: 3000,
+        showCloseButton: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timerProgressBar: true,
+        text: response.message,
+        icon: type,
+        onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+        }
+    });
+    if (response.hasOwnProperty('redirect')) {
+        window.location.replace(response.redirect);
+    }
+}

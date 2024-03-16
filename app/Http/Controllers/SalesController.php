@@ -115,9 +115,11 @@ class SalesController extends IceAxeController
 
             ),
             Field::init('date', 'Date', 'date',),
-            Field::init('sales[]','Sales','component')->setComponent('home.sales.sales-view')
-            ->setClassAttribute('col-md-12'),
-            Field::init('cash_collected', 'Cash Collected', 'number',),
+            Field::init('sales[]', 'Sales', 'component')->setComponent('home.sales.sales-view')
+                ->setClassAttribute('col-md-12'),
+            Field::init('cash_collected', 'Cash Collected', 'digit',),
+            Field::init('credit_collection', 'Credit Collected', 'digit',),
+
         ];
     }
 

@@ -1,0 +1,181 @@
+.colored-toast.swal2-icon-success {
+    background-color: #a5dc86 !important;
+}
+
+.colored-toast.swal2-icon-error {
+    background-color: #f27474 !important;
+}
+
+.colored-toast.swal2-icon-warning {
+    background-color: #f8bb86 !important;
+}
+
+.colored-toast.swal2-icon-info {
+    background-color: #3fc3ee !important;
+}
+
+.colored-toast.swal2-icon-question {
+    background-color: #87adbd !important;
+}
+
+.colored-toast .swal2-title {
+    color: white;
+}
+
+.colored-toast .swal2-close {
+    color: white;
+}
+
+.colored-toast .swal2-html-container {
+    color: white;
+}
+
+/*Parent Menu Style*/
+li.sidebar-item > a.sidebar-link > span.align-middle {
+    font-weight: 600;
+}
+
+/*Custom Top Nav*/
+.navtop {
+    box-shadow: 0 1px 10px rgba(5, 0, 0, 0.22) !important;
+}
+
+/*Custom Sidebar*/
+@media screen and (min-width: 768px) {
+    .sidebar {
+        box-shadow: 0 5px 5px rgba(249, 246, 246, 0.25), 0 1px 10px rgba(5, 0, 0, 0.22) !important;
+    }
+}
+
+/*Custom footer*/
+.footer {
+    /*box-shadow: 0 -5px 5px rgba(249, 246, 246, 0.25), 0 -1px 5px rgba(5, 0, 0, 0.22);*/
+}
+
+/*Custom input */
+.input-group .input-group-text, .register-card-body .input-group .input-group-text {
+    background-color: transparent;
+    border-bottom-right-radius: .25rem;
+    border-left: 0;
+    border-top-right-radius: .25rem;
+    color: #777;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+/*Card Design Customization*/
+.card {
+    box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
+    margin-bottom: 1rem;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-clip: border-box;
+    border: 0 solid rgba(0, 0, 0, .125);
+    border-radius: .15rem;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    padding: .75rem 1.25rem;
+    position: relative;
+    border-top-left-radius: .15rem;
+    border-top-right-radius: .15rem;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    min-height: 1px;
+    padding: 1.25rem;
+}
+
+/*Dashboard Card*/
+
+.info-box {
+    box-shadow: 0 0 1px rgba(0, 0, 0, .125), 0 1px 3px rgba(0, 0, 0, .2);
+    border-radius: .25rem;
+    background-color: #fff;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 1rem;
+    min-height: 80px;
+    padding: .5rem;
+    position: relative;
+    width: 100%;
+}
+
+.info-box .info-box-icon {
+    border-radius: .25rem;
+    -ms-flex-align: center;
+    align-items: center;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 1.875rem;
+    -ms-flex-pack: center;
+    justify-content: center;
+    text-align: center;
+    width: 70px;
+    color: #ffffff;
+}
+
+.info-box .info-box-content {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -ms-flex-pack: center;
+    justify-content: center;
+    line-height: 1.8;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 0 10px;
+    overflow: hidden;
+}
+
+.info-box .info-box-text, .info-box .progress-description {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info-box .info-box-number {
+    display: block;
+    margin-top: .25rem;
+    font-weight: 700;
+}
+
+
+.content {
+    padding: 1rem !important;
+}
+
+/*Custom Form Control*/
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    box-shadow: inset 0 0 0 transparent;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.10rem rgba(253, 126, 20, 0.25);
+}

@@ -7,6 +7,8 @@ use IceAxe\NativeCloud\App\Traits\Relation;
 use IceAxe\NativeCloud\App\Traits\Query;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Collection;
 
 final class Grid implements GridInterface
 {
@@ -33,7 +35,7 @@ final class Grid implements GridInterface
 
     public function setModel($model)
     {
-        if (! class_exists($model)) {
+        if (!class_exists($model)) {
             throw new \Exception('The model does not exist.', 500);
         }
 
@@ -46,6 +48,7 @@ final class Grid implements GridInterface
     {
         return $this->query;
     }
+
     public function setQuery($query)
     {
         $this->query = $query;
@@ -64,7 +67,13 @@ final class Grid implements GridInterface
 
     public function getData()
     {
-        return $this->setPagination($this->query);
+
+        $request = \Request::all();
+        $data = self::filterData($request, $this->query);
+        $paginator = $this->paginate($data->get());
+        $paginator = $paginator->withPath(\Request::url());
+        $this->data = $paginator ? $paginator->withQueryString() : $this->paginate(collect([]));
+        return $this->data;
     }
 
     public function getFilter(): ?array
@@ -84,13 +93,6 @@ final class Grid implements GridInterface
     }
 
 
-    public function setPagination($modelData)
-    {
-        $request = \Request::all();
-
-        return $this->filterData($request, $modelData)->paginate(10)->withQueryString();
-
-    }
 
     public function filterData($filtersData, $query)
     {
@@ -103,7 +105,11 @@ final class Grid implements GridInterface
     }
 
 
-
+    public function paginate($data, $options = []): LengthAwarePaginator
+    {
+        $page = Paginator::resolveCurrentPage() ?? 1;
+        return new LengthAwarePaginator($data->forPage($page, 10), $data->count(), 10, $page, $options);
+    }
 
 
 
@@ -117,9 +123,6 @@ final class Grid implements GridInterface
 //                return $query->where($key, $value)-;
 //            }, $query);
 //    }
-
-
-
 
 
 }

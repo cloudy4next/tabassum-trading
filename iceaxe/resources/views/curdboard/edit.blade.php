@@ -39,22 +39,31 @@
                                                 </option>
                                             @endforeach
                                         </select>
-                                    @break
+                                        @break
+                                    @case($field->type =='checkbox')
+                                        <input type="{{ $field->type }}" name="{{ $field->name }}"
+                                               id="{{ $field->name }}"
+                                               value="{{ old($field->name, $form->getData()[$field->name] ?? '') }}"
+                                               class="form-check-input">
+                                        @break
+
 
                                     @case('component')
                                         @foreach ($form->getComponentData() as $key => $value)
                                             @if ($key == $field->component)
-                                                <x-dynamic-component :component="$field->component" :value="$field->value" :field=$value />
-                                            @endif
-                                        @endforeach
-                                    @break
+                                                <x-dynamic-component :component="$field->component"
+                                                                     :value="$field->value" :field=$value/>
+                                                    @endif
+                                                    @endforeach
+                                                    @break
 
-                                    @default
-                                        <input type="{{ $field->type }}" name="{{ $field->name }}" id="{{ $field->name }}"
-                                            value="{{ old($field->name, $form->getData()[$field->name] ?? '') }}"
-                                            class="form-control">
-                                    @break
-                                @endswitch
+                                                    @default
+                                                        <input type="{{ $field->type }}" name="{{ $field->name }}"
+                                                               id="{{ $field->name }}"
+                                                               value="{{ old($field->name, $form->getData()[$field->name] ?? '') }}"
+                                                               class="form-control">
+                                                @break
+                                                @endswitch
                             </div>
                         @endforeach
                     </div>

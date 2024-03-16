@@ -15,6 +15,7 @@ abstract class TypeGenerators
     public ?string $component;
     public ?array $params;
     public ?array $options;
+
     public FeatureBuilder $featureBuilder;
 
 

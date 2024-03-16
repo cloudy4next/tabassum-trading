@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function loginViewShow()
     {
-        return view('auth.login');
+        return view('native-cloud::auth.login');
     }
 
     public function login(Request $request)

@@ -22,7 +22,6 @@ abstract class IceAxeController extends Controller implements IceAxeInterface
 
         NativeCloudFacade::createGrid($this->listOperation(), $this->CustomButton(), $this->filters());
         $this->listCustomQuery();
-
         return $this;
     }
 

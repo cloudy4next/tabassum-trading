@@ -1,0 +1,32 @@
+.invisible {
+    display: none !important;
+}
+
+.hide {
+    display: none !important;
+}
+
+.w-50 {
+    width: 50% !important;
+}
+
+.datepicker {
+    z-index: 2000 !important;
+}
+
+.select2-icon-result {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.datepicker td, .datepicker th {
+    padding: 10px;
+}
+
+.datepicker-days{
+    padding: 10px;
+}
+
+.dataTables_paginate {
+    float: right;
+}

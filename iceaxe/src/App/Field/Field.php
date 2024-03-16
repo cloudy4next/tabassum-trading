@@ -42,4 +42,15 @@ class Field extends TypeGenerators
         return $this->component;
     }
 
+    public function setIsRequired($isRequired): void
+    {
+        $this->isRequired = $isRequired;
+    }
+    public function getIsRequired(): bool
+    {
+        return $this->isRequired;
+    }
+
+
+
 }

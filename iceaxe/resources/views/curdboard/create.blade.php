@@ -28,10 +28,12 @@
                                 @switch($field->type)
 
                                     @case($field->type == 'hidden')
-                                        <input type="hidden" name="{{ $field->name  }}" id="{{ $field->name }}" value="{{ $field->value }}">
+                                        <input type="hidden" name="{{ $field->name  }}" id="{{ $field->name }}"
+                                               value="{{ $field->value }}">
                                         @break
                                     @case($field->type == 'select')
-                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control" required>
+                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control"
+                                                required>
                                             <option
                                                 value="">{{ $field->placeHolder ?? 'Select ' . $field->label }}</option>
                                             @foreach ($field->options as $key =>$value)
@@ -41,7 +43,8 @@
                                         @break
                                         <!-- Add other form inputs here -->
                                     @case($field->type == 'select2')
-                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control" required>
+                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control"
+                                                required>
                                             <option
                                                 value="">{{ $field->placeHolder ?? 'Select ' . $field->label }}</option>
                                             @foreach ($form->getRelationalData($field->getFeatureBuilder()->getModel(),$field->getFeatureBuilder()->getAttribute()) as $key =>$value)
@@ -49,6 +52,10 @@
                                                     value="{{ $value->id }}">{{ $value->{$field->getFeatureBuilder()->getAttribute()} }}</option>
                                             @endforeach
                                         </select>
+                                        @break
+                                    @case($field->type =='checkbox')
+                                        <input type="checkbox" name="{{ $field->name }}" id="{{ $field->name }}"
+                                               placeholder="{{ $field->placeHolder ?? '' }}" class="form-check-input">
                                         @break
                                     @case($field->type == 'component')
                                         <x-dynamic-component :component="$field->component"

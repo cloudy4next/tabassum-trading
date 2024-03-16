@@ -1,10 +1,4 @@
 //Added Date-range Picker
-import DateRangePicker from 'daterangepicker';
-
-const options = {
-    locale: {
-        format: "YYYY-MM-DD",
-    }
-};
-
-new DateRangePicker(document.getElementById('daterangepicker'), options);
+// import DateRangePicker from 'daterangepicker';
+import 'admin-lte/plugins/daterangepicker/daterangepicker'
+import 'admin-lte/plugins/daterangepicker/daterangepicker.css'
