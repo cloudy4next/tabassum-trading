@@ -3,7 +3,6 @@
 namespace IceAxe\NativeCloud\App\Field;
 
 
-
 use IceAxe\NativeCloud\App\Constants\TypeConstants;
 
 /**
@@ -12,8 +11,19 @@ use IceAxe\NativeCloud\App\Constants\TypeConstants;
 class Field extends TypeGenerators
 {
 
+    public string $classAttribute = 'col-md-6';
 
 
+    public function getClassAttribute(): string
+    {
+        return $this->classAttribute;
+    }
+
+    public function setClassAttribute(string $classAttribute): self
+    {
+        $this->classAttribute = $classAttribute;
+        return $this;
+    }
 
     public function setData(mixed $value): self
     {

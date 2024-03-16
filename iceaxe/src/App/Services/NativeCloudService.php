@@ -57,4 +57,13 @@ final class NativeCloudService extends AbstractCrudBoard implements NativeCloudI
         return $this->data;
     }
 
+    public function getQuery(): Builder
+    {
+        return $this->grid->getQuery();
+    }
+    function setQuery($query)
+    {
+        $this->grid->setQuery($query);
+    }
+
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('dp');
             $table->integer('rp');
             $table->bigInteger('upfront');
-            $table->integer('initial_stock');
+//            $table->integer('initial_stock');
             $table->bigInteger('current_stock');
             $table->unsignedBigInteger('company_id');
             $table->foreign('company_id')->references('id')->on('company');

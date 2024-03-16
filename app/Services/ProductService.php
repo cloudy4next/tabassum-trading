@@ -29,7 +29,7 @@ class ProductService
     }
     public function edit($id) : array
     {
-        // put your method
+        return Product::where('id', $id)->first()->toArray();
     }
 
 

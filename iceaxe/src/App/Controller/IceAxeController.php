@@ -5,6 +5,7 @@ namespace IceAxe\NativeCloud\App\Controller;
 use App\Http\Controllers\Controller;
 use IceAxe\NativeCloud\App\Contracts\IceAxeInterface;
 use IceAxe\NativeCloud\Facades\NativeCloudFacade;
+use IceAxe\NativeCloud\Facades\NativeCloudFacade as Grid;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -20,6 +21,8 @@ abstract class IceAxeController extends Controller implements IceAxeInterface
     {
 
         NativeCloudFacade::createGrid($this->listOperation(), $this->CustomButton(), $this->filters());
+        $this->listCustomQuery();
+
         return $this;
     }
 
@@ -46,7 +49,6 @@ abstract class IceAxeController extends Controller implements IceAxeInterface
         return $this;
     }
 
-    abstract public function setup(): Builder;
 
     abstract public function listOperation(): array;
 
@@ -61,7 +63,24 @@ abstract class IceAxeController extends Controller implements IceAxeInterface
      *
      * @return array should like this [componentName => componentData,etc...]
      */
-    abstract public function setComponentData(mixed $id): array;
+    public function setComponentData(mixed $id): array
+    {
+        return [];
+    }
+
+    /*
+     * Custom query api for grid eg.. order by etc
+     * you can modify as query builder you want to show;
+     */
+    public function listCustomQuery() : void
+    {
+        $query = Grid::getQuery();
+        $query->orderBy('id', 'desc');
+        Grid::setQuery($query);
+    }
+
+
+
 
 
 }

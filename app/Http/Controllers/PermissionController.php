@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use IceAxe\NativeCloud\App\Controller\IceAxeController;
 use IceAxe\NativeCloud\App\Field\Column;
 use IceAxe\NativeCloud\App\Field\Field;
+use IceAxe\NativeCloud\Facades\NativeCloudFacade as Grid;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use App\Contracts\PermissionServiceInterface;
@@ -16,8 +17,11 @@ class PermissionController extends IceAxeController
 {
     private PermissionServiceInterface $permissionService;
     private const ACTION_ROUTE = 'user_store';
+
     public function __construct(PermissionServiceInterface $permissionService)
     {
+        Grid::setModel('\Spatie\Permission\Models\Permission');
+
         $this->permissionService = $permissionService;
     }
 
@@ -47,12 +51,12 @@ class PermissionController extends IceAxeController
         ];
     }
 
-    public function  listOperation(): array
+    public function listOperation(): array
     {
         return [
             Column::init('name'),
 
-             Column::init('created_at'),
+            Column::init('created_at'),
         ];
     }
 

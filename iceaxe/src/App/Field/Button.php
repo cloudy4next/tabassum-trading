@@ -11,6 +11,7 @@ class Button
     public const NEW = 'new';
     public const VIEW = 'view';
     public const EDIT = 'edit';
+    public const INLINE = 'inline';
     public const DELETE = 'delete';
     public const CUSTOM = 'custom';
 

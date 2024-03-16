@@ -3,21 +3,23 @@
 namespace IceAxe\NativeCloud\App\GridBoard;
 
 use IceAxe\NativeCloud\App\Contracts\GridInterface;
-use IceAxe\NativeCloud\App\Traits\GridTrait;
+use IceAxe\NativeCloud\App\Traits\Relation;
+use IceAxe\NativeCloud\App\Traits\Query;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 final class Grid implements GridInterface
 {
 
-    use GridTrait;
+    use Relation, Query;
 
     private ?array $columns;
     private Builder $modelData;
     private ?array $buttons;
     private LengthAwarePaginator $data;
     private ?array $filters;
-    private Builder $query;
+
+    public Builder $query;
 
     public Builder|string $model;
 
@@ -44,6 +46,11 @@ final class Grid implements GridInterface
     {
         return $this->query;
     }
+    public function setQuery($query)
+    {
+        $this->query = $query;
+    }
+
 
     public function getModel(): string|Builder
     {

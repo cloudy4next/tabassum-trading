@@ -31,14 +31,14 @@ abstract class TypeGenerators
         $this->label = $label;
         $this->type = $type;
         $this->placeHolder = $placeHolder;
-        $this->featureBuilder = new FeatureBuilder($type,$params??[]);
+        $this->featureBuilder = new FeatureBuilder($type, $params ?? []);
 
     }
 
-    public static function init(string $name, ?string $label = null, ?string $type = TypeConstants::TEXT,?array $params= null ): self
+    public static function init(string $name, ?string $label = null, ?string $type = TypeConstants::TEXT, ?array $params = null): self
     {
-        $newPlaceHolder = self::humanize($name) . '...';
-
+        $newPlaceHolder = ($label != null) ? self::humanize($label) : self::humanize($name);
+        $newPlaceHolder = $newPlaceHolder . '...';
         return new static($name, $label ?? self::humanize($name), $type ?? TypeConstants::TEXT, $newPlaceHolder, $params);
     }
 

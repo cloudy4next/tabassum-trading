@@ -17,7 +17,6 @@ class Sales extends Model
 
     public function getTotalSaleAmount()
     {
-        // Calculate the total sale amount, including the upfront payment
         $productCost = $this->product->cost_price;
         $totalSaleAmount = ($this->quantity_sold * $this->product->selling_price) + $this->upfront_payment;
 
@@ -26,11 +25,11 @@ class Sales extends Model
 
    public function product()
    {
-       return $this->HasMany(Product::class,'id','product_id'  );
+       return $this->HasMany(Product::class,'id','product_id' );
    }
 
     public function retails()
     {
-        return $this->HasMany(Retails::class,'id','retail_id'  );
+        return $this->HasMany(Retails::class,'id','retail_id');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace IceAxe\NativeCloud\App\Traits;
 
-trait GridTrait
+trait Relation
 {
 
 

@@ -7,9 +7,6 @@ use IceAxe\NativeCloud\App\Field\Button;
 use IceAxe\NativeCloud\App\Field\Column;
 use IceAxe\NativeCloud\App\Field\Field;
 use IceAxe\NativeCloud\Facades\NativeCloudFacade as Grid;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\Request;
-use App\Models\Sales;
 use App\Http\Requests\SalesRequest;
 use App\Services\SalesService;
 
@@ -28,24 +25,27 @@ class SalesController extends IceAxeController
     }
 
 
-    public function setup(): Builder
-    {
-
-        return $this->salesService->getData();
-    }
-
     public function index()
     {
         $this->initGrid();
+
         return view('home.sales.list');
     }
+
+    public function listCustomQuery(): void
+    {
+        $query = Grid::getQuery();
+        $query->where('qty', '>', 2)->orderBy('id', 'desc');
+        Grid::setQuery($query);
+    }
+
 
     public function CustomButton(): array
     {
         return [
             Button::init(Button::NEW)->setRoute('sales.create'),
-//            Button::init(Button::EDIT)->setRoute('sales.edit'),
-//            Button::init(Button::DELETE)->setRoute('sales.delete'),
+            Button::init(Button::EDIT)->setRoute('sales.edit'),
+            Button::init(Button::DELETE)->setRoute('sales.delete'),
         ];
     }
 
@@ -56,12 +56,12 @@ class SalesController extends IceAxeController
             Field::init('product_id'),
             Field::init('retail_id'),
             Field::init('date'),
-            Field::init('created_at'),
         ];
     }
 
     public function listOperation(): array
     {
+
         return [
             Column::init('product_id', 'Product Name', 'select2',
                 [
@@ -72,12 +72,12 @@ class SalesController extends IceAxeController
                 ]
 
             ),
-            Column::init('retail_id', 'Product Name', 'select2',
+            Column::init('retail_id', 'Retail Name', 'select2',
                 [
                     'entity' => 'retails',
                     'model' => '\App\Models\Retails',
                     'foreign_key' => 'retail_id',
-                     'attribute' => 'retail_name',
+                    'attribute' => 'retail_name',
                 ]
 
             ),
@@ -89,23 +89,21 @@ class SalesController extends IceAxeController
         ];
     }
 
-    public function setComponentData(mixed $id): array
-    {
-        return [];
-    }
 
     public function createOperation(): array
     {
         return [
 
-            Field::init('product_id', 'Product Name', 'select2',
+            Field::init('company_id', 'Company Name', 'select2',
                 [
-                    'entity' => 'product',
-                    'model' => '\App\Models\Product',
-                    'foreign_key' => 'product_id',
+                    'entity' => 'company',
+                    'model' => '\App\Models\Company',
+                    'foreign_key' => 'company_id',
+                    'attribute' => 'name',
                 ]
 
             ),
+
 
             Field::init('retail_id', 'Retail Name', 'select2',
                 [
@@ -116,8 +114,10 @@ class SalesController extends IceAxeController
                 ]
 
             ),
-            Field::init('qty'),
             Field::init('date', 'Date', 'date',),
+            Field::init('sales[]','Sales','component')->setComponent('home.sales.sales-view')
+            ->setClassAttribute('col-md-12'),
+            Field::init('cash_collected', 'Cash Collected', 'number',),
         ];
     }
 
@@ -126,6 +126,7 @@ class SalesController extends IceAxeController
         $this->configureForm(self::STORE_ROUTE);
         return view('home.sales.create');
     }
+
 
     public function store(SalesRequest $request)
     {

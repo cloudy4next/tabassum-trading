@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashBoardController;
@@ -33,6 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::iceaxe('sales', \App\Http\Controllers\SalesController::class);
 
     Route::iceaxe('product', \App\Http\Controllers\ProductController::class);
+    Route::get("/product/stock/{id}", [ProductController::class, 'stock'])->name('product.stock');
+    Route::post("/product/stock/update", [ProductController::class, 'stockUpdate'])->name('product.stock.update');
 
 
     Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
@@ -55,7 +58,7 @@ Route::middleware('auth')->group(function () {
 
     });
     Route::prefix('stock')->group(function () {
-        Route::get('/', 'StockController@index');
+        Route::get('/', 'StockController@index')->name('stock.index');
         Route::get('/create', 'StockController@create');
         Route::post('/stock', 'StockController@store');
     });

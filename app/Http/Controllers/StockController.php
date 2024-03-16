@@ -5,44 +5,26 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\StockMovement;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
     public function index()
     {
-        // Retrieve the daily opening stock for today
-        $openingStock = $this->calculateDailyOpeningStock();
-        $stockMovements = StockMovement::orderBy('date', 'desc')->get();
+        $openingStock = 0;
+
+        $latestStockMovements = StockMovement::select('product_id', DB::raw('MAX(created_at) as max_created_at'))
+            ->groupBy('product_id');
+
+        $stockMovements = StockMovement::joinSub($latestStockMovements, 'latest_stock_movements', function ($join) {
+            $join->on('stock_movement.product_id', '=', 'latest_stock_movements.product_id')
+                ->on('stock_movement.created_at', '=', 'latest_stock_movements.max_created_at');
+        })->with('product')->get();
+
+
         return view('home.stock.list', compact('openingStock', 'stockMovements'));
     }
 
-    public function create()
-    {
-        $products = Product::all();
-        return view('stock.create', compact('products'));
-    }
 
-    public function store(Request $request)
-    {
-        // Handle stock movement creation here
-        // Update the current stock and record the movement
-        // You can use Eloquent to create a new StockMovement record
-    }
-
-
-    private function calculateDailyOpeningStock()
-    {
-        $today = now()->toDateString();
-
-        $lastClosingStock = StockMovement::where('date', '<', $today)
-            ->orderBy('date', 'desc')
-            ->first();
-
-        if (!$lastClosingStock) {
-            return Product::sum('initial_stock');
-        }
-
-        return $lastClosingStock->closing_stock;
-    }
 
 }

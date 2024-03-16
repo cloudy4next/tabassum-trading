@@ -12,4 +12,8 @@ interface NativeCloudInterface
     function setSetup(Builder $model): Builder;
     function getForm(): FormInterface;
     function setModel($model);
+    function getQuery(): Builder;
+
+    function setQuery($query);
+
 }
