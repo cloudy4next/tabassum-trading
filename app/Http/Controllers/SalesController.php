@@ -81,11 +81,21 @@ class SalesController extends IceAxeController
                 ]
 
             ),
+
+            Column::init('company_id', 'Company Name', 'select2',
+                [
+                    'entity' => 'company',
+                    'model' => '\App\Models\Company',
+                    'foreign_key' => 'company_id',
+                    'attribute' => 'name',
+                ]
+
+            ),
             Column::init('qty'),
             Column::init('sale_amount'),
             Column::init('date'),
             Column::init('upfront_amount'),
-            Column::init('company_id'),
+//            Column::init('company_id'),
         ];
     }
 

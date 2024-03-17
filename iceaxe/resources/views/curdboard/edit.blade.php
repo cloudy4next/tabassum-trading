@@ -8,25 +8,16 @@
             <h5 class="card-title">{{ Str::title($title) }}</h5>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-                <div class="row">
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
             <div class="card-body">
                 <form id="userForm" method="POST" action="{{ route($form->getActionRoute()) }}">
                     @csrf
-                    <div class="row mb-2">
+                    <div class="row ">
                         <input type="hidden" id="id" name="id" value={{ $form->getData()['id'] }}>
                         @foreach ($form->getColums() as $field)
-                            <div class="form-group col-md-6 mb-2">
-                                <label for="{{ $field->name }}">{{ $field->label }}:</label>
+                            <div class="{{ $field->getClassAttribute() }} mb-2">
+                                <label for="{{ $field->name }}">{{ $field->label }} @if($field->isRequired())
+                                        <span class="required" style="color: red">* </span>
+                                    @endif:</label>
                                 @switch($field->type)
                                     @case('select')
                                         <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control">
@@ -41,10 +32,15 @@
                                         </select>
                                         @break
                                     @case($field->type =='checkbox')
-                                        <input type="{{ $field->type }}" name="{{ $field->name }}"
+                                        <input type="{{ $field->type }}"
+                                               name="{{ $field->name }}"
                                                id="{{ $field->name }}"
-                                               value="{{ old($field->name, $form->getData()[$field->name] ?? '') }}"
-                                               class="form-check-input">
+                                               value="1"
+                                               class="form-check-input"
+                                               @if(old($field->name, $form->getData()[$field->name] ?? null) == 1)
+                                                   checked
+                                            @endif>
+
                                         @break
 
 

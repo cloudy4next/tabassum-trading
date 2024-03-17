@@ -94,7 +94,7 @@ class Util
 
         //------------------------------------------------------- day sales start ----------------------------
         // Calculate the sum of quantities sold within the day
-        $total_day_sold_quantity = StockMovement::whereDate('created_at' , now())->sum('quantity_out');
+        $total_day_sold_quantity = StockMovement::where('product_id', $product_id)->whereDate('created_at' , now())->sum('quantity_out');
         $total_day_sold_quantity = (!$isSold) ? $total_day_sold_quantity : $total_day_sold_quantity + $qty;
 
         // Calculate total quantity out for the current month

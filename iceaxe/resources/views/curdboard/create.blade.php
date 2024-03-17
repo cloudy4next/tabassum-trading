@@ -7,7 +7,6 @@
             <h5 class="card-title">{{ Str::title($title) }} </h5>
         </div>
         <div class="card-body">
-
             <div class="card-body">
                 <form id="userForm" method={{ $form->getActionMethod() }} action="{{ route($form->getActionRoute()) }}">
                     @csrf
@@ -49,6 +48,7 @@
                                     @case($field->type =='checkbox')
                                         <input type="checkbox" name="{{ $field->name }}" id="{{ $field->name }}"
                                                placeholder="{{ $field->placeHolder ?? '' }}" class="form-check-input">
+
                                         @break
                                     @case($field->type == 'component')
                                         <x-dynamic-component :component="$field->component"
@@ -72,7 +72,8 @@
                                     @case($field->type == 'number')
                                         <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
                                                placeholder="{{ $field->placeHolder ?? '' }}"
-                                               @if($field->isRequired()) required @endif pattern="[0-9]*" title="Please enter digits only" class="form-control">
+                                               @if($field->isRequired()) required @endif pattern="[0-9]*"
+                                               title="Please enter digits only" class="form-control">
                                         @break
                                     @default
                                         <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"

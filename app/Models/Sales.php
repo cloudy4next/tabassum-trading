@@ -32,4 +32,9 @@ class Sales extends Model
     {
         return $this->HasMany(Retails::class,'id','retail_id');
     }
+    public function company()
+    {
+        return $this->HasMany(Company::class,'id','company_id' );
+    }
+
 }

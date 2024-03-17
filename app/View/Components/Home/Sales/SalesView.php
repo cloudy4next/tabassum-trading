@@ -22,7 +22,7 @@ class SalesView extends Component
      */
     public function render(): View|Closure|string
     {
-        $products = Product::where('is_active',1)->get();
+        $products = Product::where('is_active', 1)->where('current_stock', '>', 0)->get();
         return view('components.home.sales.sales-view', compact('products'));
     }
 }

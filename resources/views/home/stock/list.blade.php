@@ -6,13 +6,9 @@
 
     <div class="content">
         <div class="col-md-12">
-            <div class="card">
-                <div class="card-body text-center">
-                    <h7 class="card-title text-center">@php echo(\Carbon\Carbon::today())@endphp</h7>
-                </div>
-            </div>
 
-            <h2 class="mt-4">Stock Movements</h2>
+            <h2 class="mt-4 text-center">Stock Movements</h2>
+
             <div class="card-body table-responsive p-0">
                 <table class="table tableSortable ">
                     <thead>

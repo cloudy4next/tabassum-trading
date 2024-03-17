@@ -21,7 +21,6 @@ class SalesService
      */
     public function store(Request $request)
     {
-//        dd($request->all());
         $soldItemArray = Util::removeZeroValuesInArray($request->quantities);
 
         if (empty($soldItemArray)) {
@@ -34,8 +33,13 @@ class SalesService
         $soldItem = [];
         foreach ($soldItemArray as $productID => $quantity) {
             $product = $this->getProduct($productID);
+            if ($product->current_stock < $quantity) {
+                throw new RedirectWithError('The quantity of ' . $product->name . ' sold is more than the available stock');
+            }
+
             $totalUpfront = ($product->upfront * $quantity);
             $totalSalesAmount = ($product->rp * $quantity);
+
 
             $sales = new Sales();
             $sales->product_id = $productID;
@@ -71,9 +75,6 @@ class SalesService
     }
 
 
-
-
-
     public
     function updateRetailCredit(float $SaleAmount, float $creditAmount, int $retailID, array $salesID, string $saleDate): void
     {
@@ -105,7 +106,6 @@ class SalesService
     public function delete($id)
     {
     }
-
 
 
 }

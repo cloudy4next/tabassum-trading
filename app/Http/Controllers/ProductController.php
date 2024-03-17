@@ -66,12 +66,20 @@ class ProductController extends IceAxeController
         return [
 
             Column::init('name'),
-            Column::init('barcode'),
-            Column::init('dp'),
-            Column::init('rp'),
+//            Column::init('barcode'),
+            Column::init('dp','Dis... Price'),
+            Column::init('rp','Ret... Price'),
             Column::init('upfront'),
             Column::init('current_stock'),
-            Column::init('company_id'),
+            Column::init('company_id', 'Company Name', 'select2',
+                [
+                    'entity' => 'company',
+                    'model' => '\App\Models\Company',
+                    'foreign_key' => 'company_id',
+                    'attribute' => 'name',
+                ]
+
+            ),
 
         ];
     }
@@ -79,15 +87,20 @@ class ProductController extends IceAxeController
     public function createOperation(): array
     {
         return [
+            Field::init('company_id', 'Company Name', 'select2',
+                [
+                    'entity' => 'company',
+                    'model' => '\App\Models\Company',
+                    'foreign_key' => 'company_id',
+                    'attribute' => 'name',
+                ]
+
+            )->setIsRequired(true),
 
             Field::init('name'),
-            Field::init('barcode'),
-            Field::init('dp'),
-            Field::init('rp'),
-            Field::init('upfront'),
-            Field::init('current_stock'),
-            Field::init('company_id'),
-            Field::init('is_active','Is Active','checkbox'),
+//            Field::init('barcode','BarCode','number'),
+            Field::init('dp','Distribution Price','number'),
+            Field::init('rp' ,'Retail Price','number'),
 
         ];
     }

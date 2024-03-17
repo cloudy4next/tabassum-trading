@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $openingStock = 0;
 

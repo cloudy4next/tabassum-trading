@@ -37,8 +37,17 @@
                         @foreach ($grid->getColumns() as $column)
                             @switch($column->getType())
                                 @case($column->getType() == 'select2')
-                                    <td scope="col" class="text-center">
-                                        {{ $row->{$column->getFeatureBuilder()->getEntity()}[0]->{$column->getFeatureBuilder()->getAttribute()} }}
+                                    <td class="text-center">
+                                        @php
+                                            $entity = $row->{$column->getFeatureBuilder()->getEntity()};
+                                            $attribute = $column->getFeatureBuilder()->getAttribute();
+                                            if ($entity instanceof \Illuminate\Database\Eloquent\Collection) {
+                                                $newEntity = $entity->first();
+                                            } else {
+                                                $newEntity = $entity;
+                                            }
+                                        @endphp
+                                        {{ $newEntity->$attribute }}
                                     </td>
                                     @break
 
