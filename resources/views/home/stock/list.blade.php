@@ -7,25 +7,25 @@
     <div class="content">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title text-center">@php echo(\Carbon\Carbon::today())@endphp</h6>
+                <div class="card-body text-center">
+                    <h7 class="card-title text-center">@php echo(\Carbon\Carbon::today())@endphp</h7>
                 </div>
             </div>
 
             <h2 class="mt-4">Stock Movements</h2>
             <div class="card-body table-responsive p-0">
-                <table class="table table-striped ">
+                <table class="table tableSortable ">
                     <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Month Opening</th>
-                        <th>Day Opening</th>
+                    <tr class="thead-dark">
+                        <th class="text-center">Product</th>
+                        <th class="text-center">Month Opening</th>
+                        <th class="text-center">Day Opening</th>
                         {{--                    <th>Day Received</th>--}}
-                        <th>Total Received</th>
-                        <th>Total Stock</th>
-                        <th>Day Sale</th>
-                        <th>Total Sale</th>
-                        <th>Closing Stock</th>
+                        <th class="text-center">Total Received</th>
+                        <th class="text-center"class="text-center">Total Stock</th>
+                        <th class="text-center">Day Sale</th>
+                        <th class="text-center">Total Sale</th>
+                        <th class="text-center">Closing Stock</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -39,20 +39,26 @@
                         $total_quantity_out = 0;
                         $total_total_sold = 0;
                         $total_daily_closing_stock = 0;
+                        $total_daily_closing_stock_price = 0;
+                        $total_daily_closing_stock_upfront = 0;
                     @endphp
 
                     @foreach ($stockMovements as $movement)
                         <tr>
-                            <td>{{ $movement->product->name }}</td>
-                            <td>{{ $movement->monthly_opening_stock }}</td>
-                            <td>{{ $movement->daily_opening_stock }}</td>
-                            <td>{{ $movement->total_received }}</td>
-                            <td>{{ $movement->stock }}</td>
-                            <td>{{ $movement->quantity_out }}</td>
-                            <td>{{ $movement->total_sold }}</td>
-                            <td>{{ $movement->daily_closing_stock }}</td>
+                            <td class="text-center">{{ $movement->product->name }}</td>
+                            <td class="text-center">{{ $movement->monthly_opening_stock }}</td>
+                            <td class="text-center">{{ $movement->daily_opening_stock }}</td>
+                            <td class="text-center">{{ $movement->total_received }}</td>
+                            <td class="text-center">{{ $movement->stock }}</td>
+                            <td class="text-center">{{ $movement->quantity_out }}</td>
+                            <td class="text-center">{{ $movement->total_sold }}</td>
+                            <td class="text-center">{{ $movement->daily_closing_stock }}</td>
 
                             @php
+                                $single_product = $movement->product->dp * $movement->daily_closing_stock;
+                                $single_upfront = $movement->product->upfront * $movement->quantity_out;
+                                $total_daily_closing_stock_upfront += $single_upfront;
+                                $total_daily_closing_stock_price += $single_product;
                                 $total_monthly_opening_stock += $movement->monthly_opening_stock;
                                 $total_daily_opening_stock += $movement->daily_opening_stock;
                                 $total_total_received += $movement->total_received;
@@ -62,18 +68,22 @@
                                 $total_daily_closing_stock += $movement->daily_closing_stock;
                             @endphp
                         </tr>
+
                     @endforeach
+
                     </tbody>
-                    <tfoot>
+
+                    <tfoot class="thead-white">
                     <tr>
-                        <th>Total</th>
-                        <th>{{ $total_monthly_opening_stock }}</th>
-                        <th>{{ $total_daily_opening_stock }}</th>
-                        <th>{{ $total_total_received }}</th>
-                        <th>{{ $total_stock }}</th>
-                        <th>{{ $total_quantity_out }}</th>
-                        <th>{{ $total_total_sold }}</th>
-                        <th>{{ $total_daily_closing_stock }}</th>
+                        <th class="text-center">Total</th>
+                        <th class="text-center">{{ $total_monthly_opening_stock }}</th>
+                        <th class="text-center">{{ $total_daily_opening_stock }}</th>
+                        <th class="text-center">{{ $total_total_received }}</th>
+                        <th class="text-center">{{ $total_stock }}</th>
+                        <th class="text-center">{{ $total_quantity_out }}</th>
+                        <th class="text-center">{{ $total_total_sold }}</th>
+                        <th class="text-center">{{ $total_daily_closing_stock }}</th>
+
                     </tr>
                     <tr>
                         <th></th>
@@ -81,9 +91,9 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th>Stock Value</th>
+                        <th class="text-center">Stock Value</th>
                         <td></td>
-                        <td>123</td>
+                        <td class="text-center">{{$total_daily_closing_stock_price}}</td>
                     </tr>
                     <tr>
                         <th></th>
@@ -91,10 +101,9 @@
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th>Today's Upfront</th>
+                        <th class="text-center">Today's Upfront</th>
                         <td></td>
-                        <td
-                        ">123</td>
+                        <td class="text-center">{{$total_daily_closing_stock_upfront}}</td>
                     </tr>
                     </tfoot>
                 </table>
