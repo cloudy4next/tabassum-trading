@@ -44,7 +44,7 @@ class SalesController extends IceAxeController
     {
         return [
             Button::init(Button::NEW)->setRoute('sales.create'),
-            Button::init(Button::EDIT)->setRoute('sales.edit'),
+//            Button::init(Button::EDIT)->setRoute('sales.edit'),
             Button::init(Button::DELETE)->setRoute('sales.delete'),
         ];
     }
@@ -102,7 +102,7 @@ class SalesController extends IceAxeController
                     'attribute' => 'name',
                 ]
 
-            ),
+            )->setIsRequired(true),
 
 
             Field::init('retail_id', 'Retail Name', 'select2',
@@ -113,12 +113,12 @@ class SalesController extends IceAxeController
                     'attribute' => 'retail_name',
                 ]
 
-            ),
-            Field::init('date', 'Date', 'date',),
+            )->setIsRequired(true),
+            Field::init('date', 'Date', 'date',)->setIsRequired(true),
             Field::init('sales[]', 'Sales', 'component')->setComponent('home.sales.sales-view')
                 ->setClassAttribute('col-md-12'),
-            Field::init('cash_collected', 'Cash Collected', 'digit',),
-            Field::init('credit_collection', 'Credit Collected', 'digit',),
+            Field::init('cash_collected', 'Cash Collected', 'number',)->setIsRequired(true),
+            Field::init('credit_collection', 'Credit Collected', 'number',),
 
         ];
     }

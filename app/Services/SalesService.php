@@ -6,47 +6,72 @@ use App\Models\Product;
 use App\Models\RetailCreditCollectionHistory;
 use App\Models\RetailCreditHistory;
 use App\Models\Retails;
-use App\Models\RetailSalesHistory;
 use App\Utils\util;
+use IceAxe\NativeCloud\Exceptions\RedirectWithError;
 use Illuminate\Http\Request;
 use App\Models\Sales;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Date;
+use Carbon\Carbon;
 
 class SalesService
 {
 
+    /**
+     * @throws RedirectWithError
+     */
     public function store(Request $request)
     {
 //        dd($request->all());
         $soldItemArray = Util::removeZeroValuesInArray($request->quantities);
-        $totalUpfront = $this->calculateRevenue(array_keys($soldItemArray));
-        $removedZeroValues = Util::removeZeroValuesInArray($request->quantities);
 
-        $sales = new Sales();
-        $sales->product_id = json_encode(array_keys($soldItemArray));
-        $sales->retail_id = $request->retail_id;
-        $sales->company_id = $request->company_id;
-        $sales->date = $request->date;
-        $sales->qty = json_encode($removedZeroValues);
-        $sales->upfront_amount = $totalUpfront;
-        $sales->sale_amount = 0;
+        if (empty($soldItemArray)) {
+            throw new RedirectWithError('No product was sold');
+        }
 
-        $sales->save();
+        $totalUpfront = 0;
+        $totalSalesAmount = 0;
+        $productIDs = array_keys($soldItemArray);
+        $soldItem = [];
+        foreach ($soldItemArray as $productID => $quantity) {
+            $product = $this->getProduct($productID);
+            $totalUpfront = ($product->upfront * $quantity);
+            $totalSalesAmount = ($product->rp * $quantity);
+
+            $sales = new Sales();
+            $sales->product_id = $productID;
+            $sales->retail_id = $request->retail_id;
+            $sales->company_id = $request->company_id;
+            $sales->date = $request->date;
+            $sales->qty = $quantity;
+            $sales->upfront_amount = $totalUpfront;
+            $sales->sale_amount = $totalSalesAmount;
+            $sales->save();
+
+            $soldItem[] += $sales->id;
+
+        }
+        $todayCreditAmount = $totalSalesAmount - $request->cash_collected;
+        $retail = Retails::find($request->retail_id);
+
+        if ($todayCreditAmount > 0) {
+            $this->updateRetailCredit($totalSalesAmount, ($totalSalesAmount - $request->cash_collected), $retail->id, $soldItem, $request->date);
+            $this->adjustRetailerCreditDebitBalance($retail->id, $todayCreditAmount, 'credit');
+
+        }
+
+        if ($request->credit_collection > 0) {
+            $this->retailCreditCollectionHistory($request->credit_collection, $retail->amount, $retail->id, $request->date);
+            $this->adjustRetailerCreditDebitBalance($request->retail_id, $request->credit_collection, 'debit');
+
+        }
+
+        return redirect()->route('stock.index')->with('success', 'Sale Saved and Stock adjusted after the sale.');
+
     }
 
 
-    public function calculateRevenue(array $productIDs): float
-    {
-        $products = Product::whereIn('id', $productIDs)->get();
-
-        return Util::calculateUpfrontFromProducts($products);
-    }
 
     public function adjustStockAfterSale(Sale $sale)
     {
-        // Retrieve the product and sold quantity from the sale
         $product = $sale->product;
         $soldQuantity = $sale->quantity_sold;
 
@@ -67,61 +92,64 @@ class SalesService
         $product->current_stock = $currentStock;
         $product->save();
 
-        return redirect()->route('stock.index')->with('success', 'Stock adjusted after the sale.');
     }
 
     public function adjustRetailerCreditDebitBalance(int $customerID, int $amount, string $type): void
     {
         $customer = Retails::find($customerID);
-        $customer->amount -= $amount;
+        if ($type === 'debit') {
+            $customer->amount -= $amount;
+        } else {
+            $customer->amount += $amount;
+        }
+        $customer->amount += $amount;
         $customer->type = $type;
-
         $customer->save();
     }
 
-    public function adjustSalesOfRetailer(int $customerID, int $amount, array $sales_ids, string $saleDate): void
-    {
-        $salesHistory = new RetailSalesHistory();
-        $salesHistory->retail_id = $customerID;
-        $salesHistory->sales_id = $sales_ids;
-        $salesHistory->sales_date = $saleDate;
-        $salesHistory->amount = $amount;
 
-        $salesHistory->save();
-    }
-
-
-    // To-do
-    public function updateRetailCredit(float $SaleAmount, float $cashCollected, array $retailID, int $salesID, string $saleDate): void
+    public
+    function updateRetailCredit(float $SaleAmount, float $creditAmount, int $retailID, array $salesID, string $saleDate): void
     {
         $retailCreditHistory = new RetailCreditHistory();
         $retailCreditHistory->retail_id = $retailID;
-        $retailCreditHistory->credit_amount = $SaleAmount - $cashCollected;
-        $retailCreditHistory->sales_id = $salesIDs;
+        $retailCreditHistory->credit_amount = $creditAmount;
+        $retailCreditHistory->sales_id = json_encode($salesID);
         $retailCreditHistory->date = $saleDate;
-
         $retailCreditHistory->save();
     }
 
 
-    public function retailCreditCollectionHistory(int $collectedAmount, $previousCredit, int $retailID,): void
+    public
+    function retailCreditCollectionHistory(int $collectedAmount, $previousCredit, int $retailID, string $collectionDate): void
     {
         $retailCreditCollectionHistory = new RetailCreditCollectionHistory();
         $retailCreditCollectionHistory->retail_id = $retailID;
-        $retailCreditCollectionHistory->prev_credit_amount = $totalCreditAmount;
+        $retailCreditCollectionHistory->prev_credit_amount = $previousCredit;
         $retailCreditCollectionHistory->collection_amount = $collectedAmount;
+        $retailCreditCollectionHistory->collection_date = $collectionDate;
         $retailCreditCollectionHistory->save();
     }
 
-    public function update(Request $request)
+    public function getProduct(int $productID): Product
+    {
+        return Product::where('id', $productID)->first();
+    }
+
+
+
+    public
+    function update(Request $request)
     {
     }
 
-    public function delete($id)
+    public
+    function delete($id)
     {
     }
 
-    public function edit($id): array
+    public
+    function edit($id): array
     {
     }
 

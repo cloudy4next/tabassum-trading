@@ -1,9 +1,9 @@
-<x-main-layout>
+<x-native-cloud::layout.main>
 
     <x-slot:title>
-        {{ $title ?? 'IceAxe' }} :: Sales
+        Sales
     </x-slot:title>
 
     <x-native-cloud::crud-form title='Create Sales '/>
 
-</x-main-layout>
+</x-native-cloud::layout.main>

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->integer('retail_id');
             $table->integer('prev_credit_amount');
             $table->integer('collection_amount');
+            $table->string('collection_date');
             $table->timestamps();
         });
     }

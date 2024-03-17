@@ -1,7 +1,7 @@
-<x-main-layout>
+<x-native-cloud::layout.main>
     <x-slot:title>
-        {{ $title ?? 'IceAxe' }} :: Stockmovement
+        Stock Movement
     </x-slot:title>
 
-    <x-native-cloud::crud-edit-form title='Edit Stockmovement ' />
-</x-main-layout>
+    <x-native-cloud::crud-edit-form title='Edit Stockmovement '/>
+</x-native-cloud::layout.main>

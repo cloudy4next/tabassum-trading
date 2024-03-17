@@ -22,7 +22,17 @@ class SalesRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'date' => 'required',
+            'cash_collected' => 'integer|required',
+        ];
+    }
+
+
+    public function messages(): array
+    {
+        return [
+            'date' => 'Please Fill The Date Field',
+            'cash_collected' => 'Cash Collection Must Be A Number',
         ];
     }
 }

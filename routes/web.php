@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SalesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashBoardController;
@@ -31,18 +32,18 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
 
-    Route::iceaxe('sales', \App\Http\Controllers\SalesController::class);
+    Route::iceaxe('sales', SalesController::class);
 
-    Route::iceaxe('product', \App\Http\Controllers\ProductController::class);
+    Route::iceaxe('product', ProductController::class);
     Route::get("/product/stock/{id}", [ProductController::class, 'stock'])->name('product.stock');
     Route::post("/product/stock/update", [ProductController::class, 'stockUpdate'])->name('product.stock.update');
 
-
-    Route::iceaxe('bank', \App\Http\Controllers\BankController::class);
+    Route::iceaxe('bank', BankController::class);
 
 
     Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::get("/", [DashboardController::class, 'main'])->name('home');
+
 
     Route::prefix('users')->group(function () {
         Route::get("/", [UserController::class, 'index'])->name('user_list')->middleware('acl:users');

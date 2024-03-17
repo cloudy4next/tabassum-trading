@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     @if (isset($title))
         <title>{{ env('APP_NAME') . ':: ' . $title ?? 'IceAxe' }}</title>
     @else
@@ -14,11 +15,18 @@
         window.base_url = "{{ url('/') }}";
         window.csrf_token = "{{ csrf_token() }}";
     </script>
-    @stack('styles')
+
     @vite('resources/js/app.js')
+
+    @stack('styles')
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-fixed">
+
+    {{-- <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="{{ asset('img/tabassum.jpg') }}" alt="tabassum" height="200" width="200">
+    </div> --}}
+
 
     <div class="wrapper">
 
@@ -63,7 +71,7 @@
         <x-native-cloud::footer />
 
     </div>
-    <!-- ./wrapper -->
+
     @if (session('success'))
         <x-native-cloud::toast type="success" message="{{ session('success') }}" />
     @elseif(session('info'))
@@ -71,7 +79,7 @@
     @elseif(session('warning'))
         <x-native-cloud::toast type="warning" message="{{ session('warning') }}" />
     @elseif(session('error'))
-        <x-native-cloud::toast type="error" message="{{ session('error') }}" />
+        <x-native-cloud::toast type="error" color="sda" message="{{ session('error') }}" />
     @endif
     @if ($errors->any())
         @foreach ($errors->all() as $error)

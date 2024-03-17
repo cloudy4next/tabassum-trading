@@ -2,10 +2,6 @@ import Swal from 'sweetalert2'
 
 window.swal = Swal;
 
-// var popupConfirmList = [].slice.call(document.querySelectorAll('[data-bl-popup="confirm"]'))
-// var popupList = popupConfirmList.map(function (popupTriggerEl) {
-//   return new bootstrap.Tooltip(popupTriggerEl)
-// })
 
 window.gridDeleteConfirm = function(el)
 {

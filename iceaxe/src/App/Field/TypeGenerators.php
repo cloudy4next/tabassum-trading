@@ -16,6 +16,7 @@ abstract class TypeGenerators
     public ?array $params;
     public ?array $options;
 
+    public bool $isRequired = false;
     public FeatureBuilder $featureBuilder;
 
 

@@ -1,7 +1,7 @@
-<x-main-layout>
+<x-native-cloud::layout.main>
     <x-slot:title>
-        {{ $title ?? 'IceAxe' }} :: Users
+        Users
     </x-slot:title>
 
-    <x-native-cloud::crud-edit-form title='Edit Users' />
-</x-main-layout>
+    <x-native-cloud::crud-edit-form title='Edit Users'/>
+</x-native-cloud::layout.main>

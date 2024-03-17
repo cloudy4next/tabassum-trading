@@ -1,30 +1,22 @@
 @props(['title'])
 
-{{--@dd($form)--}}
+
 <div class="content">
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">{{ Str::title($title) }} </h5>
         </div>
         <div class="card-body">
-            @if ($errors->any())
-                <div class="row">
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            @endif
+
             <div class="card-body">
                 <form id="userForm" method={{ $form->getActionMethod() }} action="{{ route($form->getActionRoute()) }}">
                     @csrf
                     <div class="row">
                         @foreach ($form->getColums() as $field)
                             <div class="{{ $field->getClassAttribute() }} mb-2">
-                                <label for="{{ $field->name }}">{{ $field->label }}:</label>
+                                <label for="{{ $field->name }}">{{ $field->label }} @if($field->isRequired())
+                                        <span class="required" style="color: red">* </span>
+                                    @endif:</label>
                                 @switch($field->type)
 
                                     @case($field->type == 'hidden')
@@ -32,8 +24,9 @@
                                                value="{{ $field->value }}">
                                         @break
                                     @case($field->type == 'select')
-                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control"
-                                                required>
+                                        <select name="{{ $field->name }}" id="{{ $field->name }}"
+                                                @if($field->isRequired()) required @endif class="form-control select2"
+                                        >
                                             <option
                                                 value="">{{ $field->placeHolder ?? 'Select ' . $field->label }}</option>
                                             @foreach ($field->options as $key =>$value)
@@ -41,10 +34,10 @@
                                             @endforeach
                                         </select>
                                         @break
-                                        <!-- Add other form inputs here -->
                                     @case($field->type == 'select2')
-                                        <select name="{{ $field->name }}" id="{{ $field->name }}" class="form-control"
-                                                required>
+                                        <select name="{{ $field->name }}" id="{{ $field->name }}"
+                                                @if($field->isRequired()) required @endif class="form-control select2"
+                                        >
                                             <option
                                                 value="">{{ $field->placeHolder ?? 'Select ' . $field->label }}</option>
                                             @foreach ($form->getRelationalData($field->getFeatureBuilder()->getModel(),$field->getFeatureBuilder()->getAttribute()) as $key =>$value)
@@ -63,23 +56,28 @@
                                         @break
                                     @case($field->type == 'date')
                                         <input type="date" name="{{ $field->name }}" id="{{ $field->name }}"
-                                               placeholder="{{ $field->placeHolder ?? '' }}" class="form-control">
+                                               placeholder="{{ $field->placeHolder ?? '' }}"
+                                               @if($field->isRequired()) required @endif class="form-control">
                                         @break
                                     @case($field->type == 'datetime')
                                         <input type="datetime-local" name="{{ $field->name }}" id="{{ $field->name }}"
-                                               placeholder="{{ $field->placeHolder ?? '' }}" class="form-control">
+                                               placeholder="{{ $field->placeHolder ?? '' }}"
+                                               @if($field->isRequired()) required @endif class="form-control">
                                         @break
                                     @case($field->type == 'password')
                                         <input type="password" name="{{ $field->name }}" id="{{ $field->name }}"
-                                               placeholder="{{ $field->placeHolder ?? '' }}" class="form-control">
+                                               placeholder="{{ $field->placeHolder ?? '' }}"
+                                               @if($field->isRequired()) required @endif class="form-control">
                                         @break
                                     @case($field->type == 'number')
-                                        <input type="number" name="{{ $field->name }}" id="{{ $field->name }}"
-                                               placeholder="{{ $field->placeHolder ?? '' }}" class="form-control">
+                                        <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
+                                               placeholder="{{ $field->placeHolder ?? '' }}"
+                                               @if($field->isRequired()) required @endif pattern="[0-9]*" title="Please enter digits only" class="form-control">
                                         @break
                                     @default
                                         <input type="text" name="{{ $field->name }}" id="{{ $field->name }}"
-                                               placeholder="{{ $field->placeHolder ?? '' }}" class="form-control">
+                                               placeholder="{{ $field->placeHolder ?? '' }}"
+                                               @if($field->isRequired()) required @endif class="form-control">
                                         @break
                                 @endswitch
                             </div>
@@ -99,3 +97,11 @@
     </div>
 
 </div>
+
+@push('scripts')
+    <script type="module">
+        $(function () {
+            $('.select2').select2();
+        })
+    </script>
+@endpush

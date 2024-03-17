@@ -1,7 +1,6 @@
-<x-main-layout>
-
+<x-native-cloud::layout.main>
     <x-slot:title>
-        {{ $title ?? 'IceAxe' }} :: Product Stock Update
+         Product Stock Update
     </x-slot:title>
 
     <div class="content">
@@ -35,4 +34,4 @@
         </div>
     </div>
 
-</x-main-layout>
+    </x-native-cloud::layout.main>
